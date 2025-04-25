@@ -1,24 +1,19 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import * as Blockly from "blockly";
+import 'blockly/blocks'; // Make sure standard blocks are loaded
+import { luaGenerator } from "blockly/lua";
+import "./CCBlocks";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+// Inject Blockly into the div
+const workspace = Blockly.inject("blocklyDiv", {
+  toolbox: document.getElementById("toolbox") as HTMLElement,
+});
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+// Generate Lua and download it
+document.getElementById("generateButton")?.addEventListener("click", () => {
+  const luaCode = luaGenerator.workspaceToCode(workspace);
+  const blob = new Blob([luaCode], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.download = "script.lua";
+  a.href = URL.createObjectURL(blob);
+  a.click();
+});
