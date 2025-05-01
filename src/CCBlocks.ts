@@ -625,3 +625,321 @@ luaGenerator.forBlock["G__CC_DEFAULT_SETTING"] = function () {
 };
 
 //#endregion
+
+//#region redstone
+
+// Redstone: Get Sides
+Blockly.Blocks["redstone_getSides"] = {
+  init: function () {
+    this.appendDummyInput().appendField("redstone.getSides");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets a list of all sides that can be used for redstone.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getSides");
+  },
+};
+luaGenerator.forBlock["redstone_getSides"] = function () {
+  return ["redstone.getSides()", Order.NONE];
+};
+// Redstone: Set Output
+Blockly.Blocks["redstone_setOutput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.setOutput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE")
+      .appendField("state")
+      .appendField(new Blockly.FieldDropdown([
+        ["on", "true"],
+        ["off", "false"]
+      ]), "STATE");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the redstone output on the specified side to on or off.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:setOutput");
+  },
+};
+luaGenerator.forBlock["redstone_setOutput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  const state = block.getFieldValue("STATE");
+  return `redstone.setOutput(${side}, ${state})\n`;
+};
+// Redstone: Get Output
+Blockly.Blocks["redstone_getOutput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.getOutput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Gets the redstone output state on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getOutput");
+  },
+};
+luaGenerator.forBlock["redstone_getOutput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`redstone.getOutput(${side})`, Order.NONE];
+};
+// Redstone: Get Input
+Blockly.Blocks["redstone_getInput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.getInput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Gets the redstone input state on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getInput");
+  },
+};
+luaGenerator.forBlock["redstone_getInput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`redstone.getInput(${side})`, Order.NONE];
+};
+// Redstone: Set Analog Output
+Blockly.Blocks["redstone_setAnalogOutput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.setAnalogOutput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE")
+      .appendField("strength")
+      .appendField(new Blockly.FieldDropdown([
+        ["0", "0"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"],
+        ["10", "10"], ["11", "11"], ["12", "12"], ["13", "13"], ["14", "14"], ["15", "15"]
+      ]), "STRENGTH");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the analog redstone output on the specified side with the given strength (0-15).");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:setAnalogOutput");
+  },
+};
+luaGenerator.forBlock["redstone_setAnalogOutput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  const strength = block.getFieldValue("STRENGTH");
+  return `redstone.setAnalogOutput(${side}, ${strength})\n`;
+};
+
+// Redstone: Get Analog Output
+Blockly.Blocks["redstone_getAnalogOutput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.getAnalogOutput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the analog redstone output on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getAnalogOutput");
+  },
+};
+luaGenerator.forBlock["redstone_getAnalogOutput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`redstone.getAnalogOutput(${side})`, Order.NONE];
+};
+// Redstone: Get Analog Input
+Blockly.Blocks["redstone_getAnalogInput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.getAnalogInput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the analog redstone input on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getAnalogInput");
+  },
+};
+luaGenerator.forBlock["redstone_getAnalogInput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`redstone.getAnalogInput(${side})`, Order.NONE];
+};
+// Redstone: Set Bundled Output
+Blockly.Blocks["redstone_setBundledOutput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.setBundledOutput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.appendValueInput("VALUE")
+      .setCheck("Number")
+      .appendField("value");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the bundled redstone output on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:setBundledOutput");
+  },
+};
+luaGenerator.forBlock["redstone_setBundledOutput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  const value = luaGenerator.valueToCode(block, "VALUE", Order.NONE) || "0";
+  return `redstone.setBundledOutput(${side}, ${value})\n`;
+};
+
+// Redstone: Get Bundled Output
+Blockly.Blocks["redstone_getBundledOutput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.getBundledOutput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the bundled redstone output on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getBundledOutput");
+  },
+};
+luaGenerator.forBlock["redstone_getBundledOutput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`redstone.getBundledOutput(${side})`, Order.NONE];
+};
+// Redstone: Get Bundled Input
+Blockly.Blocks["redstone_getBundledInput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.getBundledInput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the bundled redstone input on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:getBundledInput");
+  },
+};
+luaGenerator.forBlock["redstone_getBundledInput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`redstone.getBundledInput(${side})`, Order.NONE];
+};
+
+// Redstone: Test Bundled Input
+Blockly.Blocks["redstone_testBundledInput"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("redstone.testBundledInput")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["top", '"top"'],
+        ["bottom", '"bottom"'],
+        ["left", '"left"'],
+        ["right", '"right"'],
+        ["front", '"front"'],
+        ["back", '"back"']
+      ]), "SIDE");
+    this.appendValueInput("MASK")
+      .setCheck("Number")
+      .appendField("mask");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Tests if a specific bit is set in the bundled redstone input on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/redstone.html#v:testBundledInput");
+  },
+};
+luaGenerator.forBlock["redstone_testBundledInput"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  const mask = luaGenerator.valueToCode(block, "MASK", Order.NONE) || "0";
+  return [`redstone.testBundledInput(${side}, ${mask})`, Order.NONE];
+};
+//#endregion
+
+// Color Selector Block
+Blockly.Blocks["color_selector"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("color")
+      .appendField(new Blockly.FieldDropdown([
+        ["white", "white"],
+        ["orange", "orange"],
+        ["magenta", "magenta"],
+        ["light blue", "light_blue"],
+        ["yellow", "yellow"],
+        ["lime", "lime"],
+        ["pink", "pink"],
+        ["gray", "gray"],
+        ["light gray", "light_gray"],
+        ["cyan", "cyan"],
+        ["purple", "purple"],
+        ["blue", "blue"],
+        ["brown", "brown"],
+        ["green", "green"],
+        ["red", "red"],
+        ["black", "black"],
+      ]), "COLOR");
+    this.setOutput(true, "Number");
+    this.setColour(65); // Set the block color
+    this.setTooltip("Select a color and return its corresponding number.");
+    this.setHelpUrl(""); // Add a relevant help URL if needed
+  },
+};
+luaGenerator.forBlock["color_selector"] = function (block) {
+  const color = block.getFieldValue("COLOR");
+  return [`colors.${color}`, Order.NONE];
+};
