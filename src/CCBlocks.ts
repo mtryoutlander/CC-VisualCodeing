@@ -69,9 +69,15 @@ luaGenerator.forBlock["turtle_turn"] = function (block) {
 // Turtle: Select Slot
 Blockly.Blocks["turtle_select"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.select slot");
+    this.appendDummyInput()
+      .appendField("turtle.select slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setInputsInline(true);
@@ -81,8 +87,8 @@ Blockly.Blocks["turtle_select"] = {
   },
 };
 luaGenerator.forBlock["turtle_select"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return `turtle.select(${slot})\n`;
+  const slot = block.getFieldValue("SLOT");
+  return slot ? `turtle.select(${slot})\n` : "turtle.select()\n";
 };
 
 // Turtle: Get Selected Slot
@@ -96,61 +102,79 @@ Blockly.Blocks["turtle_getSelectedSlot"] = {
   },
 };
 luaGenerator.forBlock["turtle_getSelectedSlot"] = function () {
-  return "turtle.getSelectedSlot()\n";
+  return ["turtle.getSelectedSlot()", Order.NONE];
 };
 
 // Turtle: Get Item Count
 Blockly.Blocks["turtle_getItemCount"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.getItemCount slot");
+    this.appendDummyInput()
+      .appendField("turtle.getItemCount slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setOutput(true, "Number");
-    this.setInputsInline(true); // Align inputs inline
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Gets the number of items in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getItemCount");
   },
 };
 luaGenerator.forBlock["turtle_getItemCount"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return `turtle.getItemCount(${slot})\n`;
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.getItemCount(${slot})` : "turtle.getItemCount()", Order.NONE];
 };
 
 // Turtle: Get Item Space
 Blockly.Blocks["turtle_getItemSpace"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.getItemSpace slot");
+    this.appendDummyInput()
+      .appendField("turtle.getItemSpace slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setOutput(true, "Number");
-    this.setInputsInline(true); // Align inputs inline
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Gets the remaining space in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getItemSpace");
   },
 };
 luaGenerator.forBlock["turtle_getItemSpace"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return `turtle.getItemSpace(${slot})\n`;
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.getItemSpace(${slot})` : "turtle.getItemSpace()", Order.NONE];
 };
 
 // Turtle: Get Item Detail
 Blockly.Blocks["turtle_getItemDetail"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.getItemDetail slot");
-    this.setOutput(true, "Object");       // Allow the block to return an object (table)
-    this.setInputsInline(true); // Align inputs inline
+    this.appendDummyInput()
+      .appendField("turtle.getItemDetail slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
+    this.setOutput(true, "Object");
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Gets detailed information about the item in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getItemDetail");
   },
 };
 luaGenerator.forBlock["turtle_getItemDetail"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return `turtle.getItemDetail(${slot})\n`;
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.getItemDetail(${slot})` : "turtle.getItemDetail()", Order.NONE];
 };
 
 // Turtle: Equip
@@ -270,7 +294,7 @@ Blockly.Blocks["turtle_detect"] = {
 
 luaGenerator.forBlock["turtle_detect"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return `turtle.${direction}()\n`;
+  return [`turtle.${direction}()`, Order.NONE];
 };
 
 // Turtle: Attack
@@ -314,25 +338,31 @@ Blockly.Blocks["turtle_compare"] = {
 
 luaGenerator.forBlock["turtle_compare"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return `turtle.${direction}()\n`;
+  return [`turtle.${direction}()`, Order.NONE];
 };
 
 // Turtle: Compare To
 Blockly.Blocks["turtle_compareTo"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.compareTo slot");
+    this.appendDummyInput()
+      .appendField("turtle.compareTo slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setOutput(true, "Boolean");
-    this.setInputsInline(true); // Align inputs inline
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Compares the item in the selected slot with the item in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:compareTo");
   },
 };
 luaGenerator.forBlock["turtle_compareTo"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE) || "1";
-  return `turtle.compareTo(${slot})\n`;
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.compareTo(${slot})` : "turtle.compareTo()", Order.NONE];
 };
 // Turtle: Suck
 Blockly.Blocks["turtle_suck"] = {
@@ -368,7 +398,7 @@ Blockly.Blocks["turtle_getFuelLevel"] = {
   },
 };
 luaGenerator.forBlock["turtle_getFuelLevel"] = function () {
-  return "turtle.getFuelLevel()";
+  return ["turtle.getFuelLevel()", Order.NONE];
 };
 
 // Turtle: Refuel
@@ -452,7 +482,7 @@ Blockly.Blocks["turtle_getEquipped"] = {
 
 luaGenerator.forBlock["turtle_getEquipped"] = function (block) {
   const side = block.getFieldValue("SIDE");
-  return `turtle.${side}()\n`;
+  return [`turtle.${side}()`, Order.NONE];
 };
 
 //#endregion
@@ -476,7 +506,7 @@ Blockly.Blocks["G_sleep"] = {
 };
 luaGenerator.forBlock["G_sleep"] = function (block) {
   const time = luaGenerator.valueToCode(block, "TIME", Order.NONE) || "0";
-  return `os.sleep(${time})\n`;
+  return [`os.sleep(${time})`, Order.NONE];
 };
 
 // General: Write
@@ -496,7 +526,7 @@ Blockly.Blocks["G_write"] = {
 };
 luaGenerator.forBlock["G_write"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return `term.write(${text})\n`;
+  return [`term.write(${text})`, Order.NONE];
 };
 
 // General: Print
@@ -516,7 +546,7 @@ Blockly.Blocks["G_print"] = {
 };
 luaGenerator.forBlock["G_print"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return `print(${text})\n`;
+  return [`print(${text})`, Order.NONE];
 };
 
 // General: Print Error
@@ -535,7 +565,7 @@ Blockly.Blocks["G_printError"] = {
 };
 luaGenerator.forBlock["G_printError"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return `printError(${text})\n`;
+  return [`printError(${text})`, Order.NONE];
 };
 
 // General: Read
@@ -559,11 +589,11 @@ Blockly.Blocks["G_read"] = {
   },
 };
 luaGenerator.forBlock["G_read"] = function (block) {
-  const replaceChar = luaGenerator.valueToCode(block, "replaceChar", Order.NONE) || null;
-  const history = luaGenerator.valueToCode(block, "history", Order.NONE) || null;
-  const completeFn = luaGenerator.valueToCode(block, "completeFn", Order.NONE) || null;
-  const defaultValue = luaGenerator.valueToCode(block, "default", Order.NONE) || null
-  return `read(${replaceChar}, ${history}, ${completeFn}, ${defaultValue})\n`;
+  const replaceChar = luaGenerator.valueToCode(block, "replaceChar", Order.NONE) || "nil";
+  const history = luaGenerator.valueToCode(block, "history", Order.NONE) || "nil";
+  const completeFn = luaGenerator.valueToCode(block, "completeFn", Order.NONE) || "nil";
+  const defaultValue = luaGenerator.valueToCode(block, "default", Order.NONE) || "nil";
+  return [`read(${replaceChar}, ${history}, ${completeFn}, ${defaultValue})`, Order.NONE];
 };
 
 // General: Host
@@ -577,7 +607,7 @@ Blockly.Blocks["G__Host"] = {
   },
 };
 luaGenerator.forBlock["G__Host"] = function () {
-  return "_HOST";
+  return ["_HOST", Order.NONE];
 };
 
 // General: CC Default Setting
@@ -591,7 +621,7 @@ Blockly.Blocks["G__CC_DEFAULT_SETTING"] = {
   },
 };
 luaGenerator.forBlock["G__CC_DEFAULT_SETTING"] = function () {
-  return "_CC_DEFAULT_SETTINGS";
+  return ["_CC_DEFAULT_SETTINGS", Order.NONE];
 };
 
 //#endregion
