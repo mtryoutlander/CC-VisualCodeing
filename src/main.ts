@@ -17,3 +17,5 @@ document.getElementById("generateButton")?.addEventListener("click", () => {
   a.href = URL.createObjectURL(blob);
   a.click();
 });
+//edit to update main and test if the auto build is working
+
