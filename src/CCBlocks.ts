@@ -21,108 +21,63 @@ luaGenerator.forBlock["turtle_craft"] = function (block) {
   const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE) || "0";
   return `turtle.craft(${count})\n`;
 };
-
-// Turtle: Forward
-Blockly.Blocks["turtle_forward"] = {
+// Turtle: Move
+Blockly.Blocks["turtle_move"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.forward");
+    this.appendDummyInput()
+      .appendField("turtle.move")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "forward"],
+        ["back", "back"],
+        ["up", "up"],
+        ["down", "down"]
+      ]), "DIRECTION");
     this.setPreviousStatement(true, null); // Allow connection to a block above
     this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");  // the real function returns a boolean and string blockly has to ignore the string because it dose not support two outputs
     this.setColour(160);
-    this.setTooltip("Moves the turtle forward and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:forward");
+    this.setTooltip("Moves the turtle in the selected direction and returns true if successful.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_forward"] = function () {
-  return ["turtle.forward()\n", Order.NONE];
-};
-// Turtle: Back
-Blockly.Blocks["turtle_back"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.back");
-    this.setPreviousStatement(true, null); // Allow connection to a block above
-    this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Moves the turtle backward and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:back");
-  },
-};
-luaGenerator.forBlock["turtle_back"] = function () {
-  return ["turtle.back()\n", Order.NONE];
 };
 
-// Turtle: Turn Left
-Blockly.Blocks["turtle_turnLeft"] = {
+luaGenerator.forBlock["turtle_move"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
+};
+// Turtle: Turn
+Blockly.Blocks["turtle_turn"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.turnLeft");
+    this.appendDummyInput()
+      .appendField("turtle.turn")
+      .appendField(new Blockly.FieldDropdown([
+        ["left", "turnLeft"],
+        ["right", "turnRight"]
+      ]), "DIRECTION");
     this.setPreviousStatement(true, null); // Allow connection to a block above
     this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
     this.setColour(160);
-    this.setTooltip("Turns the turtle to the left and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:turnLeft");
+    this.setTooltip("Turns the turtle in the selected direction and returns true if successful.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_turnLeft"] = function () {
-  return ["turtle.turnLeft()\n", Order.NONE];
 };
 
-// Turtle: Turn Right
-Blockly.Blocks["turtle_turnRight"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.turnRight");
-    this.setPreviousStatement(true, null); // Allow connection to a block above
-    this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Turns the turtle to the right and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:turnRight");
-  },
-};
-luaGenerator.forBlock["turtle_turnRight"] = function () {
-  return ["turtle.turnRight()\n", Order.NONE];
-};
-
-// Turtle: Up
-Blockly.Blocks["turtle_up"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.up");
-    this.setPreviousStatement(true, null); // Allow connection to a block above
-    this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Moves the turtle up and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:up");
-  },
-};
-luaGenerator.forBlock["turtle_up"] = function () {
-  return ["turtle.up()\n", Order.NONE];
-};
-
-// Turtle: Down
-Blockly.Blocks["turtle_down"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.down");
-    this.setPreviousStatement(true, null); // Allow connection to a block above
-    this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Moves the turtle down and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:down");
-  },
-};
-luaGenerator.forBlock["turtle_down"] = function () {
-  return ["turtle.down()\n", Order.NONE];
+luaGenerator.forBlock["turtle_turn"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Select Slot
 Blockly.Blocks["turtle_select"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.select slot");
+    this.appendDummyInput()
+      .appendField("turtle.select slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setInputsInline(true);
@@ -132,8 +87,8 @@ Blockly.Blocks["turtle_select"] = {
   },
 };
 luaGenerator.forBlock["turtle_select"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE) ;
-  return [`turtle.select(${slot})\n`, Order.NONE];
+  const slot = block.getFieldValue("SLOT");
+  return slot ? `turtle.select(${slot})\n` : "turtle.select()\n";
 };
 
 // Turtle: Get Selected Slot
@@ -147,432 +102,289 @@ Blockly.Blocks["turtle_getSelectedSlot"] = {
   },
 };
 luaGenerator.forBlock["turtle_getSelectedSlot"] = function () {
-  return ["turtle.getSelectedSlot()\n", Order.NONE];
+  return ["turtle.getSelectedSlot()", Order.NONE];
 };
 
 // Turtle: Get Item Count
 Blockly.Blocks["turtle_getItemCount"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.getItemCount slot");
+    this.appendDummyInput()
+      .appendField("turtle.getItemCount slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setOutput(true, "Number");
-    this.setInputsInline(true); // Align inputs inline
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Gets the number of items in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getItemCount");
   },
 };
 luaGenerator.forBlock["turtle_getItemCount"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return [`turtle.getItemCount(${slot})\n`, Order.NONE];
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.getItemCount(${slot})` : "turtle.getItemCount()", Order.NONE];
 };
 
 // Turtle: Get Item Space
 Blockly.Blocks["turtle_getItemSpace"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.getItemSpace slot");
+    this.appendDummyInput()
+      .appendField("turtle.getItemSpace slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setOutput(true, "Number");
-    this.setInputsInline(true); // Align inputs inline
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Gets the remaining space in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getItemSpace");
   },
 };
 luaGenerator.forBlock["turtle_getItemSpace"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE) ;
-  return [`turtle.getItemSpace(${slot})\n`, Order.NONE];
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.getItemSpace(${slot})` : "turtle.getItemSpace()", Order.NONE];
 };
 
 // Turtle: Get Item Detail
 Blockly.Blocks["turtle_getItemDetail"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.getItemDetail slot");
-    this.setOutput(true, "Object");       // Allow the block to return an object (table)
-    this.setInputsInline(true); // Align inputs inline
+    this.appendDummyInput()
+      .appendField("turtle.getItemDetail slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
+    this.setOutput(true, "Object");
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Gets detailed information about the item in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getItemDetail");
   },
 };
 luaGenerator.forBlock["turtle_getItemDetail"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return [`turtle.getItemDetail(${slot})\n`, Order.NONE];
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.getItemDetail(${slot})` : "turtle.getItemDetail()", Order.NONE];
 };
 
-// Turtle: Equip Left
-Blockly.Blocks["turtle_equipLeft"] = {
+// Turtle: Equip
+Blockly.Blocks["turtle_equip"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.equipLeft");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.appendDummyInput()
+      .appendField("turtle.equip")
+      .appendField(new Blockly.FieldDropdown([
+        ["left", "equipLeft"],
+        ["right", "equipRight"]
+      ]), "SIDE");
+    this.setPreviousStatement(true, null); // Allow connection to a block above
+    this.setNextStatement(true, null);     // Allow connection to a block below
     this.setOutput(true, "Boolean");       // Allow the block to return a boolean
     this.setColour(160);
-    this.setTooltip("Equips the item in the selected slot to the left side.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:equipLeft");
+    this.setTooltip("Equips the item in the selected slot to the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_equipLeft"] = function () {
-  return ["turtle.equipLeft()\n", Order.NONE];
 };
 
-// Turtle: Equip Right
-Blockly.Blocks["turtle_equipRight"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.equipRight");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Equips the item in the selected slot to the right side.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:equipRight");
-  },
-};
-luaGenerator.forBlock["turtle_equipRight"] = function () {
-  return ["turtle.equipRight()\n", Order.NONE];
+luaGenerator.forBlock["turtle_equip"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return `turtle.${side}()\n`;
 };
 
 // Turtle: Dig
 Blockly.Blocks["turtle_dig"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.dig");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
+    this.appendDummyInput()
+      .appendField("turtle.dig")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "dig"],
+        ["up", "digUp"],
+        ["down", "digDown"]
+      ]), "DIRECTION")
+      .appendField("side")
+      .appendField(new Blockly.FieldDropdown([
+        ["left", "Left"],
+        ["right", "Right"]
+      ]), "SIDE");
+    this.setPreviousStatement(true, null); // Allow connection to a block above
+    this.setNextStatement(true, null);     // Allow connection to a block below
     this.setColour(160);
-    this.setTooltip("Digs the block in front of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:dig");
+    this.setTooltip("Digs a block in the selected direction and optionally on the specified side.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_dig"] = function () {
-  return ["turtle.dig()\n", Order.NONE];
 };
 
-// Turtle: Dig Up
-Blockly.Blocks["turtle_digUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.digUp");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Digs the block above the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:digUp");
-  },
-};
-luaGenerator.forBlock["turtle_digUp"] = function () {
-  return ["turtle.digUp()\n", Order.NONE];
-};
-
-// Turtle: Dig Down
-Blockly.Blocks["turtle_digDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.digDown");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Digs the block below the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:digDown");
-  },
-};
-luaGenerator.forBlock["turtle_digDown"] = function () {
-  return ["turtle.digDown()\n", Order.NONE];
+luaGenerator.forBlock["turtle_dig"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  const side = block.getFieldValue("SIDE");
+  return `turtle.${direction}(${side})\n`;
 };
 
 // Turtle: Place
 Blockly.Blocks["turtle_place"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.place");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
+    this.appendDummyInput()
+      .appendField("turtle.place")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "place"],
+        ["up", "placeUp"],
+        ["down", "placeDown"]
+      ]), "DIRECTION");
+    this.setPreviousStatement(true, null); // Allow connection to a block above
+    this.setNextStatement(true, null);     // Allow connection to a block below
     this.setColour(160);
-    this.setTooltip("Places a block or item in front of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:place");
+    this.setTooltip("Places a block or item in the selected direction and returns true if successful.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_place"] = function () {
-  return ["turtle.place()\n", Order.NONE];
 };
 
-// Turtle: Place Up
-Blockly.Blocks["turtle_placeUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.placeUp");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Places a block or item above the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:placeUp");
-  },
-};
-luaGenerator.forBlock["turtle_placeUp"] = function () {
-  return ["turtle.placeUp()\n", Order.NONE];
-};
-
-// Turtle: Place Down
-Blockly.Blocks["turtle_placeDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.placeDown");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Places a block or item below the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:placeDown");
-  },
-};
-luaGenerator.forBlock["turtle_placeDown"] = function () {
-  return ["turtle.placeDown()\n", Order.NONE];
+luaGenerator.forBlock["turtle_place"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Drop
 Blockly.Blocks["turtle_drop"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.drop");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
+    this.appendDummyInput()
+      .appendField("turtle.drop")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "drop"],
+        ["up", "dropUp"],
+        ["down", "dropDown"]
+      ]), "DIRECTION");
+    this.setPreviousStatement(true, null); // Allow connection to a block above
+    this.setNextStatement(true, null);     // Allow connection to a block below
     this.setColour(160);
-    this.setTooltip("Drops items from the selected slot in front of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:drop");
+    this.setTooltip("Drops items in the selected direction and returns true if successful.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_drop"] = function () {
-  return ["turtle.drop()\n", Order.NONE];
 };
 
-// Turtle: Drop Up
-Blockly.Blocks["turtle_dropUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.dropUp");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Drops items from the selected slot above the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:dropUp");
-  },
-};
-luaGenerator.forBlock["turtle_dropUp"] = function () {
-  return ["turtle.dropUp()\n", Order.NONE];
-};
-
-// Turtle: Drop Down
-Blockly.Blocks["turtle_dropDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.dropDown");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Drops items from the selected slot below the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:dropDown");
-  },
-};
-luaGenerator.forBlock["turtle_dropDown"] = function () {
-  return ["turtle.dropDown()\n", Order.NONE];
+luaGenerator.forBlock["turtle_drop"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Detect
 Blockly.Blocks["turtle_detect"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.detect");
-    this.setOutput(true, "Boolean");
+    this.appendDummyInput()
+      .appendField("turtle.detect")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "detect"],
+        ["up", "detectUp"],
+        ["down", "detectDown"]
+      ]), "DIRECTION");
+    this.setOutput(true, "Boolean"); // Allow the block to return a boolean
     this.setColour(160);
-    this.setTooltip("Detects if there is a block in front of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:detect");
+    this.setTooltip("Detects if there is a block in the selected direction.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_detect"] = function () {
-  return ["turtle.detect()\n", Order.NONE];
 };
 
-// Turtle: Detect Up
-Blockly.Blocks["turtle_detectUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.detectUp");
-    this.setOutput(true, "Boolean");
-    this.setColour(160);
-    this.setTooltip("Detects if there is a block above the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:detectUp");
-  },
-};
-luaGenerator.forBlock["turtle_detectUp"] = function () {
-  return ["turtle.detectUp()\n", Order.NONE];
-};
-
-// Turtle: Detect Down
-Blockly.Blocks["turtle_detectDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.detectDown");
-    this.setOutput(true, "Boolean");
-    this.setColour(160);
-    this.setTooltip("Detects if there is a block below the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:detectDown");
-  },
-};
-luaGenerator.forBlock["turtle_detectDown"] = function () {
-  return ["turtle.detectDown()\n", Order.NONE];
+luaGenerator.forBlock["turtle_detect"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return [`turtle.${direction}()`, Order.NONE];
 };
 
 // Turtle: Attack
 Blockly.Blocks["turtle_attack"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.attack");
+    this.appendDummyInput()
+      .appendField("turtle.attack")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "attack"],
+        ["up", "attackUp"],
+        ["down", "attackDown"]
+      ]), "DIRECTION");
     this.setPreviousStatement(true, null); // Allow connection to a block above
     this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
     this.setColour(160);
-    this.setTooltip("Attacks the entity in front of the turtle and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:attack");
+    this.setTooltip("Attacks an entity in the selected direction and returns true if successful.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
 };
-luaGenerator.forBlock["turtle_attack"] = function () {
-  return ["turtle.attack()\n", Order.NONE];
-};
 
-// Turtle: Attack Up
-Blockly.Blocks["turtle_attackUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.attackUp");
-    this.setPreviousStatement(true, null); // Allow connection to a block above
-    this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Attacks the entity above the turtle and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:attackUp");
-  },
+luaGenerator.forBlock["turtle_attack"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
 };
-luaGenerator.forBlock["turtle_attackUp"] = function () {
-  return ["turtle.attackUp()\n", Order.NONE];
-};
-
-// Turtle: Attack Down
-Blockly.Blocks["turtle_attackDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.attackDown");
-    this.setPreviousStatement(true, null); // Allow connection to a block above
-    this.setNextStatement(true, null);     // Allow connection to a block below
-    this.setOutput(true, "Boolean");       // Allow the block to return a boolean
-    this.setColour(160);
-    this.setTooltip("Attacks the entity below the turtle and returns true if successful.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:attackDown");
-  },
-};
-luaGenerator.forBlock["turtle_attackDown"] = function () {
-  return ["turtle.attackDown()\n", Order.NONE];
-};
-
 // Turtle: Compare
 Blockly.Blocks["turtle_compare"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.compare");
-    this.setOutput(true, "Boolean");
+    this.appendDummyInput()
+      .appendField("turtle.compare")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "compare"],
+        ["up", "compareUp"],
+        ["down", "compareDown"]
+      ]), "DIRECTION");
+    this.setOutput(true, "Boolean"); // Allow the block to return a boolean
     this.setColour(160);
-    this.setTooltip("Compares the block in front of the turtle with the item in the selected slot.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:compare");
+    this.setTooltip("Compares the block in the selected direction with the item in the selected slot.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_compare"] = function () {
-  return ["turtle.compare()\n", Order.NONE];
 };
 
-// Turtle: Compare Up
-Blockly.Blocks["turtle_compareUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.compareUp");
-    this.setOutput(true, "Boolean");
-    this.setColour(160);
-    this.setTooltip("Compares the block above the turtle with the item in the selected slot.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:compareUp");
-  },
-};
-luaGenerator.forBlock["turtle_compareUp"] = function () {
-  return ["turtle.compareUp()\n", Order.NONE];
-};
-
-// Turtle: Compare Down
-Blockly.Blocks["turtle_compareDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.compareDown");
-    this.setOutput(true, "Boolean");
-    this.setColour(160);
-    this.setTooltip("Compares the block below the turtle with the item in the selected slot.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:compareDown");
-  },
-};
-luaGenerator.forBlock["turtle_compareDown"] = function () {
-  return ["turtle.compareDown()\n", Order.NONE];
+luaGenerator.forBlock["turtle_compare"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return [`turtle.${direction}()`, Order.NONE];
 };
 
 // Turtle: Compare To
 Blockly.Blocks["turtle_compareTo"] = {
   init: function () {
-    this.appendValueInput("SLOT")
-      .setCheck("Number")
-      .appendField("turtle.compareTo slot");
+    this.appendDummyInput()
+      .appendField("turtle.compareTo slot")
+      .appendField(new Blockly.FieldDropdown([
+        ["selected", ""],
+        ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"],
+        ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"],
+        ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+        ["13", "13"], ["14", "14"], ["15", "15"], ["16", "16"]
+      ]), "SLOT");
     this.setOutput(true, "Boolean");
-    this.setInputsInline(true); // Align inputs inline
+    this.setInputsInline(true);
     this.setColour(160);
     this.setTooltip("Compares the item in the selected slot with the item in the specified slot.");
     this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:compareTo");
   },
 };
 luaGenerator.forBlock["turtle_compareTo"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE) || "1";
-  return [`turtle.compareTo(${slot})\n`, Order.NONE];
+  const slot = block.getFieldValue("SLOT");
+  return [slot ? `turtle.compareTo(${slot})` : "turtle.compareTo()", Order.NONE];
 };
-
 // Turtle: Suck
 Blockly.Blocks["turtle_suck"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.suck");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.appendDummyInput()
+      .appendField("turtle.suck")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "suck"],
+        ["up", "suckUp"],
+        ["down", "suckDown"]
+      ]), "DIRECTION");
+    this.setPreviousStatement(true, null); // Allow connection to a block above
+    this.setNextStatement(true, null);     // Allow connection to a block below
     this.setColour(160);
-    this.setTooltip("Pulls an item from the inventory or block in front of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:suck");
+    this.setTooltip("Pulls an item from the inventory or block in the selected direction.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_suck"] = function () {
-  return ["turtle.suck()\n", Order.NONE];
 };
 
-// Turtle: Suck Up
-Blockly.Blocks["turtle_suckUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.suckUp");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(160);
-    this.setTooltip("Pulls an item from the inventory or block above the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:suckUp");
-  },
-};
-luaGenerator.forBlock["turtle_suckUp"] = function () {
-  return ["turtle.suckUp()\n", Order.NONE];
-};
-
-// Turtle: Suck Down
-Blockly.Blocks["turtle_suckDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.suckDown");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(160);
-    this.setTooltip("Pulls an item from the inventory or block below the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:suckDown");
-  },
-};
-luaGenerator.forBlock["turtle_suckDown"] = function () {
-  return ["turtle.suckDown()\n", Order.NONE];
+luaGenerator.forBlock["turtle_suck"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Get Fuel Level
@@ -605,8 +417,8 @@ Blockly.Blocks["turtle_refuel"] = {
   },
 };
 luaGenerator.forBlock["turtle_refuel"] = function (block) {
-  const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE) ;
-  return [`turtle.refuel(${count})\n`, Order.NONE];
+  const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE);
+  return `turtle.refuel(${count})\n`;
 };
 
 // Turtle: Transfer To
@@ -627,79 +439,50 @@ Blockly.Blocks["turtle_transferTo"] = {
   },
 };
 luaGenerator.forBlock["turtle_transferTo"] = function (block) {
-  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE) ;
-  const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE) ;
+  const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
+  const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE);
   return `turtle.transferTo(${slot}, ${count})\n`;
 };
-
 // Turtle: Inspect
 Blockly.Blocks["turtle_inspect"] = {
   init: function () {
-    this.appendDummyInput().appendField("turtle.inspect");
-    this.setOutput(true, "Object");       // Allow the block to return an object (table)
+    this.appendDummyInput()
+      .appendField("turtle.inspect")
+      .appendField(new Blockly.FieldDropdown([
+        ["forward", "inspect"],
+        ["up", "inspectUp"],
+        ["down", "inspectDown"]
+      ]), "DIRECTION");
+    this.setOutput(true, "Object"); // Allow the block to return an object (table)
     this.setColour(160);
-    this.setTooltip("Inspects the block in front of the turtle and returns its details.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:inspect");
+    this.setTooltip("Inspects the block in the selected direction and returns its details.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
   },
-};
-luaGenerator.forBlock["turtle_inspect"] = function () {
-  return ["turtle.inspect()\n", Order.NONE];
 };
 
-// Turtle: Inspect Up
-Blockly.Blocks["turtle_inspectUp"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.inspectUp");
-    this.setOutput(true, "Object");       // Allow the block to return an object (table)
-    this.setColour(160);
-    this.setTooltip("Inspects the block above the turtle and returns its details.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:inspectUp");
-  },
+luaGenerator.forBlock["turtle_inspect"] = function (block) {
+  const direction = block.getFieldValue("DIRECTION");
+  return `turtle.${direction}()\n`;
 };
-luaGenerator.forBlock["turtle_inspectUp"] = function () {
-  return ["turtle.inspectUp()\n", Order.NONE];
+// Turtle: Get Equipped
+Blockly.Blocks["turtle_getEquipped"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("turtle.getEquipped")
+      .appendField(new Blockly.FieldDropdown([
+        ["left", "getEquippedLeft"],
+        ["right", "getEquippedRight"]
+      ]), "SIDE");
+    this.setOutput(true, "Object"); // Allow the block to return an object (table)
+    this.setColour(160);
+    this.setTooltip("Gets details about the item equipped on the selected side of the turtle.");
+    this.setHelpUrl("https://tweaked.cc/module/turtle.html");
+  },
 };
 
-// Turtle: Inspect Down
-Blockly.Blocks["turtle_inspectDown"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.inspectDown");
-    this.setOutput(true, "Object");       // Allow the block to return an object (table)
-    this.setColour(160);
-    this.setTooltip("Inspects the block below the turtle and returns its details.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:inspectDown");
-  },
-};
-luaGenerator.forBlock["turtle_inspectDown"] = function () {
-  return ["turtle.inspectDown()\n", Order.NONE];
-};
-
-// Turtle: Get Equipped Left
-Blockly.Blocks["turtle_getEquippedLeft"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.getEquippedLeft");
-    this.setOutput(true, "Object");
-    this.setColour(160);
-    this.setTooltip("Gets details about the item equipped on the left side of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getEquippedLeft");
-  },
-};
-luaGenerator.forBlock["turtle_getEquippedLeft"] = function () {
-  return ["turtle.getEquippedLeft()\n", Order.NONE];
-};
-
-// Turtle: Get Equipped Right
-Blockly.Blocks["turtle_getEquippedRight"] = {
-  init: function () {
-    this.appendDummyInput().appendField("turtle.getEquippedRight");
-    this.setOutput(true, "Object");
-    this.setColour(160);
-    this.setTooltip("Gets details about the item equipped on the right side of the turtle.");
-    this.setHelpUrl("https://tweaked.cc/module/turtle.html#v:getEquippedRight");
-  },
-};
-luaGenerator.forBlock["turtle_getEquippedRight"] = function () {
-  return ["turtle.getEquippedRight()\n", Order.NONE];
+luaGenerator.forBlock["turtle_getEquipped"] = function (block) {
+  const side = block.getFieldValue("SIDE");
+  return [`turtle.${side}()`, Order.NONE];
 };
 
 //#endregion
@@ -723,7 +506,7 @@ Blockly.Blocks["G_sleep"] = {
 };
 luaGenerator.forBlock["G_sleep"] = function (block) {
   const time = luaGenerator.valueToCode(block, "TIME", Order.NONE) || "0";
-  return `os.sleep(${time})\n`;
+  return [`os.sleep(${time})`, Order.NONE];
 };
 
 // General: Write
@@ -735,7 +518,7 @@ Blockly.Blocks["G_write"] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setInputsInline(true);
-    this.setOutput(true, "Number");      
+    this.setOutput(true, "Number");
     this.setColour(120);
     this.setTooltip("Writes text to the terminal without a newline.");
     this.setHelpUrl("https://tweaked.cc/module/term.html#v:write");
@@ -743,7 +526,7 @@ Blockly.Blocks["G_write"] = {
 };
 luaGenerator.forBlock["G_write"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return [`term.write(${text})\n`,Order.NONE];
+  return [`term.write(${text})`, Order.NONE];
 };
 
 // General: Print
@@ -755,7 +538,7 @@ Blockly.Blocks["G_print"] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setInputsInline(true);
-    this.setOutput(true, "Number"); 
+    this.setOutput(true, "Number");
     this.setColour(120);
     this.setTooltip("Prints text to the terminal with a newline.");
     this.setHelpUrl("https://tweaked.cc/module/_G.html#v:print");
@@ -763,7 +546,7 @@ Blockly.Blocks["G_print"] = {
 };
 luaGenerator.forBlock["G_print"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return [`print(${text})\n`,Order.NONE];
+  return [`print(${text})`, Order.NONE];
 };
 
 // General: Print Error
@@ -782,15 +565,15 @@ Blockly.Blocks["G_printError"] = {
 };
 luaGenerator.forBlock["G_printError"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return `printError(${text})\n`;
+  return [`printError(${text})`, Order.NONE];
 };
 
 // General: Read
 Blockly.Blocks["G_read"] = {
   init: function () {
     this.appendValueInput("replaceChar")
-    .appendField("replace Character");
-      this.appendValueInput("history")
+      .appendField("replace Character");
+    this.appendValueInput("history")
       .setCheck("String")
       .appendField("history");
     this.appendValueInput("completeFn")
@@ -806,11 +589,11 @@ Blockly.Blocks["G_read"] = {
   },
 };
 luaGenerator.forBlock["G_read"] = function (block) {
-  const replaceChar = luaGenerator.valueToCode(block, "replaceChar", Order.NONE) || null;
-  const history = luaGenerator.valueToCode(block, "history", Order.NONE) || null;
-  const completeFn = luaGenerator.valueToCode(block, "completeFn", Order.NONE) || null;
-  const defaultValue = luaGenerator.valueToCode(block, "default", Order.NONE) || null
-  return [`read(${replaceChar}, ${history}, ${completeFn}, ${defaultValue})\n`,Order.NONE];
+  const replaceChar = luaGenerator.valueToCode(block, "replaceChar", Order.NONE) || "nil";
+  const history = luaGenerator.valueToCode(block, "history", Order.NONE) || "nil";
+  const completeFn = luaGenerator.valueToCode(block, "completeFn", Order.NONE) || "nil";
+  const defaultValue = luaGenerator.valueToCode(block, "default", Order.NONE) || "nil";
+  return [`read(${replaceChar}, ${history}, ${completeFn}, ${defaultValue})`, Order.NONE];
 };
 
 // General: Host
