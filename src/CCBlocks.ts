@@ -19,7 +19,7 @@ Blockly.Blocks["turtle_craft"] = {
 };
 luaGenerator.forBlock["turtle_craft"] = function (block) {
   const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE) || "0";
-  return [`turtle.craft(${count})\n`, Order.NONE];;
+  return `turtle.craft(${count})\n`;
 };
 // Turtle: Move
 Blockly.Blocks["turtle_move"] = {
@@ -42,7 +42,7 @@ Blockly.Blocks["turtle_move"] = {
 
 luaGenerator.forBlock["turtle_move"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 // Turtle: Turn
 Blockly.Blocks["turtle_turn"] = {
@@ -63,7 +63,7 @@ Blockly.Blocks["turtle_turn"] = {
 
 luaGenerator.forBlock["turtle_turn"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];;
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Select Slot
@@ -82,7 +82,7 @@ Blockly.Blocks["turtle_select"] = {
 };
 luaGenerator.forBlock["turtle_select"] = function (block) {
   const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return [`turtle.select(${slot})\n`, Order.NONE];
+  return `turtle.select(${slot})\n`;
 };
 
 // Turtle: Get Selected Slot
@@ -96,7 +96,7 @@ Blockly.Blocks["turtle_getSelectedSlot"] = {
   },
 };
 luaGenerator.forBlock["turtle_getSelectedSlot"] = function () {
-  return ["turtle.getSelectedSlot()\n", Order.NONE];
+  return "turtle.getSelectedSlot()\n";
 };
 
 // Turtle: Get Item Count
@@ -114,7 +114,7 @@ Blockly.Blocks["turtle_getItemCount"] = {
 };
 luaGenerator.forBlock["turtle_getItemCount"] = function (block) {
   const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return [`turtle.getItemCount(${slot})\n`, Order.NONE];
+  return `turtle.getItemCount(${slot})\n`;
 };
 
 // Turtle: Get Item Space
@@ -132,7 +132,7 @@ Blockly.Blocks["turtle_getItemSpace"] = {
 };
 luaGenerator.forBlock["turtle_getItemSpace"] = function (block) {
   const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return [`turtle.getItemSpace(${slot})\n`, Order.NONE];
+  return `turtle.getItemSpace(${slot})\n`;
 };
 
 // Turtle: Get Item Detail
@@ -150,7 +150,7 @@ Blockly.Blocks["turtle_getItemDetail"] = {
 };
 luaGenerator.forBlock["turtle_getItemDetail"] = function (block) {
   const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE);
-  return [`turtle.getItemDetail(${slot})\n`, Order.NONE];
+  return `turtle.getItemDetail(${slot})\n`;
 };
 
 // Turtle: Equip
@@ -173,7 +173,7 @@ Blockly.Blocks["turtle_equip"] = {
 
 luaGenerator.forBlock["turtle_equip"] = function (block) {
   const side = block.getFieldValue("SIDE");
-  return [`turtle.${side}()\n`, Order.NONE];
+  return `turtle.${side}()\n`;
 };
 
 // Turtle: Dig
@@ -202,7 +202,7 @@ Blockly.Blocks["turtle_dig"] = {
 luaGenerator.forBlock["turtle_dig"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
   const side = block.getFieldValue("SIDE");
-  return [`turtle.${direction}(${side})\n`, Order.ATOMIC];
+  return `turtle.${direction}(${side})\n`;
 };
 
 // Turtle: Place
@@ -225,7 +225,7 @@ Blockly.Blocks["turtle_place"] = {
 
 luaGenerator.forBlock["turtle_place"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Drop
@@ -248,7 +248,7 @@ Blockly.Blocks["turtle_drop"] = {
 
 luaGenerator.forBlock["turtle_drop"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Detect
@@ -270,7 +270,7 @@ Blockly.Blocks["turtle_detect"] = {
 
 luaGenerator.forBlock["turtle_detect"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Attack
@@ -293,7 +293,7 @@ Blockly.Blocks["turtle_attack"] = {
 
 luaGenerator.forBlock["turtle_attack"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 // Turtle: Compare
 Blockly.Blocks["turtle_compare"] = {
@@ -314,7 +314,7 @@ Blockly.Blocks["turtle_compare"] = {
 
 luaGenerator.forBlock["turtle_compare"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Compare To
@@ -332,7 +332,7 @@ Blockly.Blocks["turtle_compareTo"] = {
 };
 luaGenerator.forBlock["turtle_compareTo"] = function (block) {
   const slot = luaGenerator.valueToCode(block, "SLOT", Order.NONE) || "1";
-  return [`turtle.compareTo(${slot})\n`, Order.NONE];
+  return `turtle.compareTo(${slot})\n`;
 };
 // Turtle: Suck
 Blockly.Blocks["turtle_suck"] = {
@@ -354,7 +354,7 @@ Blockly.Blocks["turtle_suck"] = {
 
 luaGenerator.forBlock["turtle_suck"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 
 // Turtle: Get Fuel Level
@@ -368,7 +368,7 @@ Blockly.Blocks["turtle_getFuelLevel"] = {
   },
 };
 luaGenerator.forBlock["turtle_getFuelLevel"] = function () {
-  return ["turtle.getFuelLevel()", Order.NONE];
+  return "turtle.getFuelLevel()";
 };
 
 // Turtle: Refuel
@@ -388,7 +388,7 @@ Blockly.Blocks["turtle_refuel"] = {
 };
 luaGenerator.forBlock["turtle_refuel"] = function (block) {
   const count = luaGenerator.valueToCode(block, "COUNT", Order.NONE);
-  return [`turtle.refuel(${count})\n`, Order.NONE];
+  return `turtle.refuel(${count})\n`;
 };
 
 // Turtle: Transfer To
@@ -432,7 +432,7 @@ Blockly.Blocks["turtle_inspect"] = {
 
 luaGenerator.forBlock["turtle_inspect"] = function (block) {
   const direction = block.getFieldValue("DIRECTION");
-  return [`turtle.${direction}()\n`, Order.NONE];
+  return `turtle.${direction}()\n`;
 };
 // Turtle: Get Equipped
 Blockly.Blocks["turtle_getEquipped"] = {
@@ -452,7 +452,7 @@ Blockly.Blocks["turtle_getEquipped"] = {
 
 luaGenerator.forBlock["turtle_getEquipped"] = function (block) {
   const side = block.getFieldValue("SIDE");
-  return [`turtle.${side}()\n`, Order.NONE];
+  return `turtle.${side}()\n`;
 };
 
 //#endregion
@@ -496,7 +496,7 @@ Blockly.Blocks["G_write"] = {
 };
 luaGenerator.forBlock["G_write"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return [`term.write(${text})\n`, Order.NONE];
+  return `term.write(${text})\n`;
 };
 
 // General: Print
@@ -516,7 +516,7 @@ Blockly.Blocks["G_print"] = {
 };
 luaGenerator.forBlock["G_print"] = function (block) {
   const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
-  return [`print(${text})\n`, Order.NONE];
+  return `print(${text})\n`;
 };
 
 // General: Print Error
@@ -563,7 +563,7 @@ luaGenerator.forBlock["G_read"] = function (block) {
   const history = luaGenerator.valueToCode(block, "history", Order.NONE) || null;
   const completeFn = luaGenerator.valueToCode(block, "completeFn", Order.NONE) || null;
   const defaultValue = luaGenerator.valueToCode(block, "default", Order.NONE) || null
-  return [`read(${replaceChar}, ${history}, ${completeFn}, ${defaultValue})\n`, Order.NONE];
+  return `read(${replaceChar}, ${history}, ${completeFn}, ${defaultValue})\n`;
 };
 
 // General: Host
@@ -577,7 +577,7 @@ Blockly.Blocks["G__Host"] = {
   },
 };
 luaGenerator.forBlock["G__Host"] = function () {
-  return ["_HOST", Order.NONE];
+  return "_HOST";
 };
 
 // General: CC Default Setting
@@ -591,7 +591,7 @@ Blockly.Blocks["G__CC_DEFAULT_SETTING"] = {
   },
 };
 luaGenerator.forBlock["G__CC_DEFAULT_SETTING"] = function () {
-  return ["_CC_DEFAULT_SETTINGS", Order.NONE];
+  return "_CC_DEFAULT_SETTINGS";
 };
 
 //#endregion
