@@ -943,3 +943,150 @@ luaGenerator.forBlock["color_selector"] = function (block) {
   const color = block.getFieldValue("COLOR");
   return [`colors.${color}`, Order.NONE];
 };
+//#region Printer
+
+// Printer: Write
+Blockly.Blocks["printer_write"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("printer.write text");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(200);
+    this.setTooltip("Writes text to the current page in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:write");
+  },
+};
+luaGenerator.forBlock["printer_write"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  return `printer.write(${text})\n`;
+};
+
+// Printer: Get Cursor Position
+Blockly.Blocks["printer_getCursorPos"] = {
+  init: function () {
+    this.appendDummyInput().appendField("printer.getCursorPos");
+    this.setOutput(true, "Object");
+    this.setColour(200);
+    this.setTooltip("Gets the current cursor position in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:getCursorPos");
+  },
+};
+luaGenerator.forBlock["printer_getCursorPos"] = function () {
+  return ["printer.getCursorPos()", Order.NONE];
+};
+
+// Printer: Set Cursor Position
+Blockly.Blocks["printer_setCursorPos"] = {
+  init: function () {
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField("printer.setCursorPos X");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("Y");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(200);
+    this.setTooltip("Sets the cursor position in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:setCursorPos");
+  },
+};
+luaGenerator.forBlock["printer_setCursorPos"] = function (block) {
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "0";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "0";
+  return `printer.setCursorPos(${x}, ${y})\n`;
+};
+
+// Printer: Get Page Size
+Blockly.Blocks["printer_getPageSize"] = {
+  init: function () {
+    this.appendDummyInput().appendField("printer.getPageSize");
+    this.setOutput(true, "Object");
+    this.setColour(200);
+    this.setTooltip("Gets the size of the current page in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:getPageSize");
+  },
+};
+luaGenerator.forBlock["printer_getPageSize"] = function () {
+  return ["printer.getPageSize()", Order.NONE];
+};
+
+// Printer: New Page
+Blockly.Blocks["printer_newPage"] = {
+  init: function () {
+    this.appendDummyInput().appendField("printer.newPage");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(200);
+    this.setTooltip("Starts a new page in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:newPage");
+  },
+};
+luaGenerator.forBlock["printer_newPage"] = function () {
+  return "printer.newPage()\n";
+};
+
+// Printer: End Page
+Blockly.Blocks["printer_endPage"] = {
+  init: function () {
+    this.appendDummyInput().appendField("printer.endPage");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(200);
+    this.setTooltip("Ends the current page in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:endPage");
+  },
+};
+luaGenerator.forBlock["printer_endPage"] = function () {
+  return "printer.endPage()\n";
+};
+
+// Printer: Set Page Title
+Blockly.Blocks["printer_setPageTitle"] = {
+  init: function () {
+    this.appendValueInput("TITLE")
+      .setCheck("String")
+      .appendField("printer.setPageTitle title");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(200);
+    this.setTooltip("Sets the title of the current page in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:setPageTitle");
+  },
+};
+luaGenerator.forBlock["printer_setPageTitle"] = function (block) {
+  const title = luaGenerator.valueToCode(block, "TITLE", Order.NONE) || '""';
+  return `printer.setPageTitle(${title})\n`;
+};
+
+// Printer: Get Ink Level
+Blockly.Blocks["printer_getInkLevel"] = {
+  init: function () {
+    this.appendDummyInput().appendField("printer.getInkLevel");
+    this.setOutput(true, "Number");
+    this.setColour(200);
+    this.setTooltip("Gets the current ink level in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:getInkLevel");
+  },
+};
+luaGenerator.forBlock["printer_getInkLevel"] = function () {
+  return ["printer.getInkLevel()", Order.NONE];
+};
+
+// Printer: Get Paper Level
+Blockly.Blocks["printer_getPaperLevel"] = {
+  init: function () {
+    this.appendDummyInput().appendField("printer.getPaperLevel");
+    this.setOutput(true, "Number");
+    this.setColour(200);
+    this.setTooltip("Gets the current paper level in the printer.");
+    this.setHelpUrl("https://tweaked.cc/module/printer.html#v:getPaperLevel");
+  },
+};
+luaGenerator.forBlock["printer_getPaperLevel"] = function () {
+  return ["printer.getPaperLevel()", Order.NONE];
+};
+
+//endregion
