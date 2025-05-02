@@ -1901,3 +1901,94 @@ luaGenerator.forBlock["speaker_stop"] = function () {
 
 //#endregion
 
+
+//#region Computer
+
+// Computer: Turn On
+Blockly.Blocks["computer_turnOn"] = {
+  init: function () {
+    this.appendDummyInput().appendField("computer.turnOn");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turns on the computer if it is off.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:turnOn");
+  },
+};
+luaGenerator.forBlock["computer_turnOn"] = function () {
+  return "os.turnOn()\n";
+};
+
+// Computer: Shutdown
+Blockly.Blocks["computer_shutdown"] = {
+  init: function () {
+    this.appendDummyInput().appendField("computer.shutdown");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Shuts down the computer.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:shutdown");
+  },
+};
+luaGenerator.forBlock["computer_shutdown"] = function () {
+  return "os.shutdown()\n";
+};
+
+// Computer: Reboot
+Blockly.Blocks["computer_reboot"] = {
+  init: function () {
+    this.appendDummyInput().appendField("computer.reboot");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Reboots the computer.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:reboot");
+  },
+};
+luaGenerator.forBlock["computer_reboot"] = function () {
+  return "os.reboot()\n";
+};
+
+// Computer: Get ID
+Blockly.Blocks["computer_getID"] = {
+  init: function () {
+    this.appendDummyInput().appendField("computer.getID");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the ID of the computer.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:getComputerID");
+  },
+};
+luaGenerator.forBlock["computer_getID"] = function () {
+  return ["os.getComputerID()", Order.NONE];
+};
+
+// Computer: Is On
+Blockly.Blocks["computer_isOn"] = {
+  init: function () {
+    this.appendDummyInput().appendField("computer.isOn");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Checks if the computer is currently on.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:isOn");
+  },
+};
+luaGenerator.forBlock["computer_isOn"] = function () {
+  return ["os.isOn()", Order.NONE];
+};
+
+// Computer: Get Label
+Blockly.Blocks["computer_getLabel"] = {
+  init: function () {
+    this.appendDummyInput().appendField("computer.getLabel");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Gets the label of the computer.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:getComputerLabel");
+  },
+};
+luaGenerator.forBlock["computer_getLabel"] = function () {
+  return ["os.getComputerLabel()", Order.NONE];
+};
+
+//#endregion
