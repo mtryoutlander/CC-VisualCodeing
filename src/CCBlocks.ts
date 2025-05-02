@@ -1774,3 +1774,130 @@ luaGenerator.forBlock["color_fromBlit"] = function (block) {
 //#endregion
 
 
+//#region Speaker
+
+// Speaker: Instrument Selector
+Blockly.Blocks["speaker_instrument"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("instrument")
+      .appendField(new Blockly.FieldDropdown([
+        ["harp", "harp"],
+        ["basedrum", "basedrum"],
+        ["snare", "snare"],
+        ["hat", "hat"],
+        ["bass", "bass"],
+        ["flute", "flute"],
+        ["bell", "bell"],
+        ["guitar", "guitar"],
+        ["chime", "chime"],
+        ["xylophone", "xylophone"],
+        ["iron_xylophone", "iron_xylophone"],
+        ["cow_bell", "cow_bell"],
+        ["didgeridoo", "didgeridoo"],
+        ["bit", "bit"],
+        ["banjo", "banjo"],
+        ["pling", "pling"]
+      ]), "INSTRUMENT");
+    this.setOutput(true, "String");
+    this.setColour(120);
+    this.setTooltip("Select an instrument and return its corresponding string.");
+    this.setHelpUrl("https://tweaked.cc/peripheral/speaker.html#v:playNote"); // Add a relevant help URL if needed
+  },
+};
+luaGenerator.forBlock["speaker_instrument"] = function (block) {
+  const instrument = block.getFieldValue("INSTRUMENT");
+  return [`"${instrument}"`, Order.NONE];
+};
+
+// Speaker: Play Note
+Blockly.Blocks["speaker_playNote"] = {
+  init: function () {
+    this.appendValueInput("INSTRUMENT")
+      .setCheck("String")
+      .appendField("speaker.playNote instrument");
+    this.appendValueInput("VOLUME")
+      .setCheck("Number")
+      .appendField("volume");
+    this.appendValueInput("PITCH")
+      .setCheck("Number")
+      .appendField("pitch");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Plays a note on the speaker with the specified instrument, volume, and pitch.");
+    this.setHelpUrl("https://tweaked.cc/module/speaker.html#v:playNote");
+  },
+};
+luaGenerator.forBlock["speaker_playNote"] = function (block) {
+  const instrument = luaGenerator.valueToCode(block, "INSTRUMENT", Order.NONE) || '""';
+  const volume = luaGenerator.valueToCode(block, "VOLUME", Order.NONE) || "1";
+  const pitch = luaGenerator.valueToCode(block, "PITCH", Order.NONE) || "1";
+  return `speaker.playNote(${instrument}, ${volume}, ${pitch})\n`;
+};
+
+// Speaker: Play Sound
+Blockly.Blocks["speaker_playSound"] = {
+  init: function () {
+    this.appendValueInput("SOUND")
+      .setCheck("String")
+      .appendField("speaker.playSound sound");
+    this.appendValueInput("VOLUME")
+      .setCheck("Number")
+      .appendField("volume");
+    this.appendValueInput("PITCH")
+      .setCheck("Number")
+      .appendField("pitch");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Plays a sound on the speaker with the specified sound, volume, and pitch.");
+    this.setHelpUrl("https://tweaked.cc/module/speaker.html#v:playSound");
+  },
+};
+luaGenerator.forBlock["speaker_playSound"] = function (block) {
+  const sound = luaGenerator.valueToCode(block, "SOUND", Order.NONE) || '""';
+  const volume = luaGenerator.valueToCode(block, "VOLUME", Order.NONE) || "1";
+  const pitch = luaGenerator.valueToCode(block, "PITCH", Order.NONE) || "1";
+  return `speaker.playSound(${sound}, ${volume}, ${pitch})\n`;
+};
+
+// Speaker: Play Audio
+Blockly.Blocks["speaker_playAudio"] = {
+  init: function () {
+    this.appendValueInput("AUDIO")
+      .setCheck("Object")
+      .appendField("speaker.playAudio audio");
+    this.appendValueInput("VOLUME")
+      .setCheck("Number")
+      .appendField("volume");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Plays an audio file on the speaker with the specified volume.");
+    this.setHelpUrl("https://tweaked.cc/module/speaker.html#v:playAudio");
+  },
+};
+luaGenerator.forBlock["speaker_playAudio"] = function (block) {
+  const audio = luaGenerator.valueToCode(block, "AUDIO", Order.NONE) || "{}";
+  const volume = luaGenerator.valueToCode(block, "VOLUME", Order.NONE) || "1";
+  return `speaker.playAudio(${audio}, ${volume})\n`;
+};
+
+// Speaker: Stop
+Blockly.Blocks["speaker_stop"] = {
+  init: function () {
+    this.appendDummyInput().appendField("speaker.stop");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Stops all sounds currently playing on the speaker.");
+    this.setHelpUrl("https://tweaked.cc/module/speaker.html#v:stop");
+  },
+};
+luaGenerator.forBlock["speaker_stop"] = function () {
+  return "speaker.stop()\n";
+};
+
+//#endregion
+
