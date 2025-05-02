@@ -626,7 +626,7 @@ luaGenerator.forBlock["G__CC_DEFAULT_SETTING"] = function () {
 
 //#endregion
 
-//#region redstone
+//#region Redstone
 
 // Redstone: Get Sides
 Blockly.Blocks["redstone_getSides"] = {
@@ -910,42 +910,9 @@ luaGenerator.forBlock["redstone_testBundledInput"] = function (block) {
 };
 //#endregion
 
-// Color Selector Block
-Blockly.Blocks["color_selector"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField("color")
-      .appendField(new Blockly.FieldDropdown([
-        ["white", "white"],
-        ["orange", "orange"],
-        ["magenta", "magenta"],
-        ["light blue", "light_blue"],
-        ["yellow", "yellow"],
-        ["lime", "lime"],
-        ["pink", "pink"],
-        ["gray", "gray"],
-        ["light gray", "light_gray"],
-        ["cyan", "cyan"],
-        ["purple", "purple"],
-        ["blue", "blue"],
-        ["brown", "brown"],
-        ["green", "green"],
-        ["red", "red"],
-        ["black", "black"],
-      ]), "COLOR");
-    this.setOutput(true, "Number");
-    this.setColour(65); // Set the block color
-    this.setTooltip("Select a color and return its corresponding number.");
-    this.setHelpUrl(""); // Add a relevant help URL if needed
-  },
-};
-luaGenerator.forBlock["color_selector"] = function (block) {
-  const color = block.getFieldValue("COLOR");
-  return [`colors.${color}`, Order.NONE];
-};
-//#region Printer
 
-// Printer: Write
+//#region Printer
+//Printer: Write
 Blockly.Blocks["printer_write"] = {
   init: function () {
     this.appendValueInput("TEXT")
@@ -1089,4 +1056,235 @@ luaGenerator.forBlock["printer_getPaperLevel"] = function () {
   return ["printer.getPaperLevel()", Order.NONE];
 };
 
-//endregion
+//#endregion
+
+// Color Selector Block
+Blockly.Blocks["color_selector"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("color")
+      .appendField(new Blockly.FieldDropdown([
+        ["white", "white"],
+        ["orange", "orange"],
+        ["magenta", "magenta"],
+        ["light blue", "light_blue"],
+        ["yellow", "yellow"],
+        ["lime", "lime"],
+        ["pink", "pink"],
+        ["gray", "gray"],
+        ["light gray", "light_gray"],
+        ["cyan", "cyan"],
+        ["purple", "purple"],
+        ["blue", "blue"],
+        ["brown", "brown"],
+        ["green", "green"],
+        ["red", "red"],
+        ["black", "black"],
+      ]), "COLOR");
+    this.setOutput(true, "Number");
+    this.setColour(65); // Set the block color
+    this.setTooltip("Select a color and return its corresponding number.");
+    this.setHelpUrl(""); // Add a relevant help URL if needed
+  },
+};
+luaGenerator.forBlock["color_selector"] = function (block) {
+  const color = block.getFieldValue("COLOR");
+  return [`colors.${color}`, Order.NONE];
+};
+//#region Disk
+
+// Disk: Is Present
+Blockly.Blocks["disk_isPresent"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.isPresent drive");
+    this.setOutput(true, "Boolean");
+    this.setColour(290);
+    this.setTooltip("Checks if a disk is present in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:isPresent");
+  },
+};
+luaGenerator.forBlock["disk_isPresent"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.isPresent(${driveName})`, Order.NONE];
+};
+
+// Disk: Get Label
+Blockly.Blocks["disk_getLabel"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.getLabel drive");
+    this.setOutput(true, "String");
+    this.setColour(290);
+    this.setTooltip("Gets the label of the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:getLabel");
+  },
+};
+luaGenerator.forBlock["disk_getLabel"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.getLabel(${driveName})`, Order.NONE];
+};
+
+// Disk: Set Label
+Blockly.Blocks["disk_setLabel"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.setLabel drive");
+    this.appendValueInput("LABEL")
+      .setCheck("String")
+      .appendField("label");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets the label of the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:setLabel");
+  },
+};
+luaGenerator.forBlock["disk_setLabel"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  const label = luaGenerator.valueToCode(block, "LABEL", Order.NONE) || '""';
+  return `disk.setLabel(${driveName}, ${label})\n`;
+};
+
+// Disk: Has Data
+Blockly.Blocks["disk_hasData"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.hasData drive");
+    this.setOutput(true, "Boolean");
+    this.setColour(290);
+    this.setTooltip("Checks if the disk in the specified drive contains data.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:hasData");
+  },
+};
+luaGenerator.forBlock["disk_hasData"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.hasData(${driveName})`, Order.NONE];
+};
+// Disk: Get Mount Path
+Blockly.Blocks["disk_getMountPath"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.getMountPath drive");
+    this.setOutput(true, "String");
+    this.setColour(290);
+    this.setTooltip("Gets the mount path of the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:getMountPath");
+  },
+};
+luaGenerator.forBlock["disk_getMountPath"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.getMountPath(${driveName})`, Order.NONE];
+};
+
+// Disk: Has Audio
+Blockly.Blocks["disk_hasAudio"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.hasAudio drive");
+    this.setOutput(true, "Boolean");
+    this.setColour(290);
+    this.setTooltip("Checks if the disk in the specified drive contains audio.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:hasAudio");
+  },
+};
+luaGenerator.forBlock["disk_hasAudio"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.hasAudio(${driveName})`, Order.NONE];
+};
+
+// Disk: Get Audio Title
+Blockly.Blocks["disk_getAudioTitle"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.getAudioTitle drive");
+    this.setOutput(true, "String");
+    this.setColour(290);
+    this.setTooltip("Gets the title of the audio on the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:getAudioTitle");
+  },
+};
+luaGenerator.forBlock["disk_getAudioTitle"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.getAudioTitle(${driveName})`, Order.NONE];
+};
+
+// Disk: Play Audio
+Blockly.Blocks["disk_playAudio"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.playAudio drive");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Plays the audio on the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:playAudio");
+  },
+};
+luaGenerator.forBlock["disk_playAudio"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return `disk.playAudio(${driveName})\n`;
+};
+
+// Disk: Stop Audio
+Blockly.Blocks["disk_stopAudio"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.stopAudio drive");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Stops the audio playing from the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:stopAudio");
+  },
+};
+luaGenerator.forBlock["disk_stopAudio"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return `disk.stopAudio(${driveName})\n`;
+};
+
+// Disk: Eject
+Blockly.Blocks["disk_eject"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.eject drive");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Ejects the disk from the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:eject");
+  },
+};
+luaGenerator.forBlock["disk_eject"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return `disk.eject(${driveName})\n`;
+};
+
+// Disk: Get ID
+Blockly.Blocks["disk_getID"] = {
+  init: function () {
+    this.appendValueInput("DRIVENAME")
+      .setCheck("String")
+      .appendField("disk.getID drive");
+    this.setOutput(true, "String");
+    this.setColour(290);
+    this.setTooltip("Gets the ID of the disk in the specified drive.");
+    this.setHelpUrl("https://tweaked.cc/module/disk.html#v:getID");
+  },
+};
+luaGenerator.forBlock["disk_getID"] = function (block) {
+  const driveName = luaGenerator.valueToCode(block, "DRIVENAME", Order.NONE) || '""';
+  return [`disk.getID(${driveName})`, Order.NONE];
+};
+
+//#endregion
