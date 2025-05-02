@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "deploy": "tsc && vite build && gh-pages -d dist"
-  },
+ "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "deploy": "tsc --project tsconfig.build.json && vite build && gh-pages -d dist"
+},
   "devDependencies": {
     "@types/node": "^22.15.3",
     "gh-pages": "^6.3.0",
