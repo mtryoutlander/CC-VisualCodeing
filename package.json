@@ -16,6 +16,8 @@
     "vite": "^6.3.1"
   },
   "dependencies": {
+    "@blockly/theme-dark": "^7.0.10",
+    "@blockly/toolbox-search": "^2.0.12",
     "blockly": "^11.2.2"
   }
 }
