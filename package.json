@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "tsc && vite build && gh-pages -d dist"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
