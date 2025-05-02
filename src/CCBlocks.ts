@@ -1058,39 +1058,7 @@ luaGenerator.forBlock["printer_getPaperLevel"] = function () {
 
 //#endregion
 
-// Color Selector Block
-Blockly.Blocks["color_selector"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField("color")
-      .appendField(new Blockly.FieldDropdown([
-        ["white", "white"],
-        ["orange", "orange"],
-        ["magenta", "magenta"],
-        ["light blue", "light_blue"],
-        ["yellow", "yellow"],
-        ["lime", "lime"],
-        ["pink", "pink"],
-        ["gray", "gray"],
-        ["light gray", "light_gray"],
-        ["cyan", "cyan"],
-        ["purple", "purple"],
-        ["blue", "blue"],
-        ["brown", "brown"],
-        ["green", "green"],
-        ["red", "red"],
-        ["black", "black"],
-      ]), "COLOR");
-    this.setOutput(true, "Number");
-    this.setColour(65); // Set the block color
-    this.setTooltip("Select a color and return its corresponding number.");
-    this.setHelpUrl(""); // Add a relevant help URL if needed
-  },
-};
-luaGenerator.forBlock["color_selector"] = function (block) {
-  const color = block.getFieldValue("COLOR");
-  return [`colors.${color}`, Order.NONE];
-};
+
 //#region Disk
 
 // Disk: Is Present
@@ -1288,3 +1256,521 @@ luaGenerator.forBlock["disk_getID"] = function (block) {
 };
 
 //#endregion
+
+//#region Monitor
+// Monitor: Set Text Scale
+Blockly.Blocks["monitor_setTextScale"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("monitor.setTextScale scale")
+      .appendField(new Blockly.FieldDropdown([
+        ["0.5", "0.5"],
+        ["1.0", "1.0"],
+        ["1.5", "1.5"],
+        ["2.0", "2.0"],
+        ["2.5", "2.5"],
+        ["3.0", "3.0"],
+        ["3.5", "3.5"],
+        ["4.0", "4.0"],
+        ["4.5", "4.5"],
+        ["5.0", "5.0"]
+      ]), "SCALE");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets the text scale of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:setTextScale");
+  },
+};
+luaGenerator.forBlock["monitor_setTextScale"] = function (block) {
+  const scale = block.getFieldValue("SCALE");
+  return `monitor.setTextScale(${scale})\n`;
+};
+// Monitor: Get Text Scale
+Blockly.Blocks["monitor_getTextScale"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.getTextScale");
+    this.setOutput(true, "Number");
+    this.setColour(290);
+    this.setTooltip("Gets the current text scale of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getTextScale");
+  },
+};
+luaGenerator.forBlock["monitor_getTextScale"] = function () {
+  return ["monitor.getTextScale()", Order.NONE];
+};
+
+// Monitor: Write
+Blockly.Blocks["monitor_write"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("monitor.write text");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Writes text to the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:write");
+  },
+};
+luaGenerator.forBlock["monitor_write"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  return `monitor.write(${text})\n`;
+};
+
+// Monitor: Scroll
+Blockly.Blocks["monitor_scroll"] = {
+  init: function () {
+    this.appendValueInput("LINES")
+      .setCheck("Number")
+      .appendField("monitor.scroll lines");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Scrolls the monitor by the specified number of lines.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:scroll");
+  },
+};
+luaGenerator.forBlock["monitor_scroll"] = function (block) {
+  const lines = luaGenerator.valueToCode(block, "LINES", Order.NONE) || "0";
+  return `monitor.scroll(${lines})\n`;
+};
+
+// Monitor: Get Cursor Position
+Blockly.Blocks["monitor_getCursorPos"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.getCursorPos");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Gets the current cursor position on the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getCursorPos");
+  },
+};
+luaGenerator.forBlock["monitor_getCursorPos"] = function () {
+  return ["monitor.getCursorPos()", Order.NONE];
+};
+
+// Monitor: Set Cursor Position
+Blockly.Blocks["monitor_setCursorPos"] = {
+  init: function () {
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField("monitor.setCursorPos X");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("Y");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets the cursor position on the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:setCursorPos");
+  },
+};
+luaGenerator.forBlock["monitor_setCursorPos"] = function (block) {
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "1";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "1";
+  return `monitor.setCursorPos(${x}, ${y})\n`;
+};
+
+// Monitor: Get Cursor Blink
+Blockly.Blocks["monitor_getCursorBlink"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.getCursorBlink");
+    this.setOutput(true, "Boolean");
+    this.setColour(290);
+    this.setTooltip("Gets whether the cursor is blinking on the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getCursorBlink");
+  },
+};
+luaGenerator.forBlock["monitor_getCursorBlink"] = function () {
+  return ["monitor.getCursorBlink()", Order.NONE];
+};
+
+// Monitor: Set Cursor Blink
+Blockly.Blocks["monitor_setCursorBlink"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("monitor.setCursorBlink state")
+      .appendField(new Blockly.FieldDropdown([
+        ["true", "true"],
+        ["false", "false"]
+      ]), "STATE");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets whether the cursor blinks on the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:setCursorBlink");
+  },
+};
+luaGenerator.forBlock["monitor_setCursorBlink"] = function (block) {
+  const state = block.getFieldValue("STATE");
+  return `monitor.setCursorBlink(${state})\n`;
+};
+
+// Monitor: Get Size
+Blockly.Blocks["monitor_getSize"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.getSize");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Gets the size of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getSize");
+  },
+};
+luaGenerator.forBlock["monitor_getSize"] = function () {
+  return ["monitor.getSize()", Order.NONE];
+};
+
+// Monitor: Clear
+Blockly.Blocks["monitor_clear"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.clear");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Clears the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:clear");
+  },
+};
+luaGenerator.forBlock["monitor_clear"] = function () {
+  return "monitor.clear()\n";
+};
+
+// Monitor: Clear Line
+Blockly.Blocks["monitor_clearLine"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.clearLine");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Clears the current line on the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:clearLine");
+  },
+};
+luaGenerator.forBlock["monitor_clearLine"] = function () {
+  return "monitor.clearLine()\n";
+};
+
+// Monitor: Get Text Colour
+Blockly.Blocks["monitor_getTextColour"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.getTextColour");
+    this.setOutput(true, "Number");
+    this.setColour(290);
+    this.setTooltip("Gets the current text colour of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getTextColour");
+  },
+};
+luaGenerator.forBlock["monitor_getTextColour"] = function () {
+  return ["monitor.getTextColour()", Order.NONE];
+};
+
+// Monitor: Set Text Colour
+Blockly.Blocks["monitor_setTextColour"] = {
+  init: function () {
+    this.appendValueInput("COLOUR")
+      .setCheck("Number")
+      .appendField("monitor.setTextColour colour");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets the text colour of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:setTextColour");
+  },
+};
+luaGenerator.forBlock["monitor_setTextColour"] = function (block) {
+  const colour = luaGenerator.valueToCode(block, "COLOUR", Order.NONE) || "1";
+  return `monitor.setTextColour(${colour})\n`;
+};
+
+// Monitor: Get Background Colour
+Blockly.Blocks["monitor_getBackgroundColour"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.getBackgroundColour");
+    this.setOutput(true, "Number");
+    this.setColour(290);
+    this.setTooltip("Gets the current background colour of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getBackgroundColour");
+  },
+};
+luaGenerator.forBlock["monitor_getBackgroundColour"] = function () {
+  return ["monitor.getBackgroundColour()", Order.NONE];
+};
+
+// Monitor: Set Background Colour
+Blockly.Blocks["monitor_setBackgroundColour"] = {
+  init: function () {
+    this.appendValueInput("COLOUR")
+      .setCheck("Number")
+      .appendField("monitor.setBackgroundColour colour");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets the background colour of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:setBackgroundColour");
+  },
+};
+luaGenerator.forBlock["monitor_setBackgroundColour"] = function (block) {
+  const colour = luaGenerator.valueToCode(block, "COLOUR", Order.NONE) || "1";
+  return `monitor.setBackgroundColour(${colour})\n`;
+};
+
+// Monitor: Is Colour
+Blockly.Blocks["monitor_isColour"] = {
+  init: function () {
+    this.appendDummyInput().appendField("monitor.isColour");
+    this.setOutput(true, "Boolean");
+    this.setColour(290);
+    this.setTooltip("Checks if the monitor supports colour.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:isColour");
+  },
+};
+luaGenerator.forBlock["monitor_isColour"] = function () {
+  return ["monitor.isColour()", Order.NONE];
+};
+
+// Monitor: Blit
+Blockly.Blocks["monitor_blit"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("monitor.blit text");
+    this.appendValueInput("TEXT_COLOUR")
+      .setCheck("Number")
+      .appendField("text colour");
+    this.appendValueInput("BACKGROUND_COLOUR")
+      .setCheck("Number")
+      .appendField("background colour");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Writes text to the monitor with specific text and background colours.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:blit");
+  },
+};
+luaGenerator.forBlock["monitor_blit"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  const textColour = luaGenerator.valueToCode(block, "TEXT_COLOUR", Order.NONE) || '""';
+  const backgroundColour = luaGenerator.valueToCode(block, "BACKGROUND_COLOUR", Order.NONE) || '""';
+  return `monitor.blit(${text}, ${textColour}, ${backgroundColour})\n`;
+};
+
+// Monitor: Set Palette Colour
+Blockly.Blocks["monitor_setPaletteColour"] = {
+  init: function () {
+    this.appendValueInput("COLOUR")
+      .setCheck("Number")
+      .appendField("monitor.setPaletteColour colour");
+    this.appendValueInput("RGB")
+      .setCheck("Object")
+      .appendField("RGB");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Sets the palette colour of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:setPaletteColour");
+  },
+};
+luaGenerator.forBlock["monitor_setPaletteColour"] = function (block) {
+  const colour = luaGenerator.valueToCode(block, "COLOUR", Order.NONE) || "1";
+  const rgb = luaGenerator.valueToCode(block, "RGB", Order.NONE) || "{}";
+  return `monitor.setPaletteColour(${colour}, ${rgb})\n`;
+};
+
+// Monitor: Get Palette Colour
+Blockly.Blocks["monitor_getPaletteColour"] = {
+  init: function () {
+    this.appendValueInput("COLOUR")
+      .setCheck("Number")
+      .appendField("monitor.getPaletteColour colour");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Gets the palette colour of the monitor.");
+    this.setHelpUrl("https://tweaked.cc/module/monitor.html#v:getPaletteColour");
+  },
+};
+luaGenerator.forBlock["monitor_getPaletteColour"] = function (block) {
+  const colour = luaGenerator.valueToCode(block, "COLOUR", Order.NONE) || "1";
+  return [`monitor.getPaletteColour(${colour})`, Order.NONE];
+};
+
+//#endregion
+
+//#region Color
+
+// Color Selector Block
+Blockly.Blocks["color_selector"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("color")
+      .appendField(new Blockly.FieldDropdown([
+        ["white", "white"],
+        ["orange", "orange"],
+        ["magenta", "magenta"],
+        ["light blue", "light_blue"],
+        ["yellow", "yellow"],
+        ["lime", "lime"],
+        ["pink", "pink"],
+        ["gray", "gray"],
+        ["light gray", "light_gray"],
+        ["cyan", "cyan"],
+        ["purple", "purple"],
+        ["blue", "blue"],
+        ["brown", "brown"],
+        ["green", "green"],
+        ["red", "red"],
+        ["black", "black"],
+      ]), "COLOR");
+    this.setOutput(true, "Number");
+    this.setColour(65); // Set the block color
+    this.setTooltip("Select a color and return its corresponding number.");
+    this.setHelpUrl(""); // Add a relevant help URL if needed
+  },
+};
+luaGenerator.forBlock["color_selector"] = function (block) {
+  const color = block.getFieldValue("COLOR");
+  return [`colors.${color}`, Order.NONE];
+};
+
+// Color: Combine
+Blockly.Blocks["color_combine"] = {
+  init: function () {
+    this.appendValueInput("COLOR1")
+      .setCheck("Number")
+      .appendField("color.combine color1");
+    this.appendValueInput("COLOR2")
+      .setCheck("Number")
+      .appendField("color2");
+    this.setOutput(true, "Number");
+    this.setColour(65);
+    this.setTooltip("Combines two colors into a single color.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:combine");
+  },
+};
+luaGenerator.forBlock["color_combine"] = function (block) {
+  const color1 = luaGenerator.valueToCode(block, "COLOR1", Order.NONE) || "0";
+  const color2 = luaGenerator.valueToCode(block, "COLOR2", Order.NONE) || "0";
+  return [`colors.combine(${color1}, ${color2})`, Order.NONE];
+};
+
+// Color: Subtract
+Blockly.Blocks["color_subtract"] = {
+  init: function () {
+    this.appendValueInput("COLOR1")
+      .setCheck("Number")
+      .appendField("color.subtract color1");
+    this.appendValueInput("COLOR2")
+      .setCheck("Number")
+      .appendField("color2");
+    this.setOutput(true, "Number");
+    this.setColour(65);
+    this.setTooltip("Subtracts one color from another.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:subtract");
+  },
+};
+luaGenerator.forBlock["color_subtract"] = function (block) {
+  const color1 = luaGenerator.valueToCode(block, "COLOR1", Order.NONE) || "0";
+  const color2 = luaGenerator.valueToCode(block, "COLOR2", Order.NONE) || "0";
+  return [`colors.subtract(${color1}, ${color2})`, Order.NONE];
+};
+
+// Color: Test
+Blockly.Blocks["color_test"] = {
+  init: function () {
+    this.appendValueInput("COLOR")
+      .setCheck("Number")
+      .appendField("color.test color");
+    this.appendValueInput("MASK")
+      .setCheck("Number")
+      .appendField("mask");
+    this.setOutput(true, "Boolean");
+    this.setColour(65);
+    this.setTooltip("Tests if a specific bit is set in a color.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:test");
+  },
+};
+luaGenerator.forBlock["color_test"] = function (block) {
+  const color = luaGenerator.valueToCode(block, "COLOR", Order.NONE) || "0";
+  const mask = luaGenerator.valueToCode(block, "MASK", Order.NONE) || "0";
+  return [`colors.test(${color}, ${mask})`, Order.NONE];
+};
+
+// Color: Pack RGB
+Blockly.Blocks["color_packRGB"] = {
+  init: function () {
+    this.appendValueInput("R")
+      .setCheck("Number")
+      .appendField("color.packRGB R");
+    this.appendValueInput("G")
+      .setCheck("Number")
+      .appendField("G");
+    this.appendValueInput("B")
+      .setCheck("Number")
+      .appendField("B");
+    this.setOutput(true, "Number");
+    this.setColour(65);
+    this.setTooltip("Packs RGB values into a single color.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:packRGB");
+  },
+};
+luaGenerator.forBlock["color_packRGB"] = function (block) {
+  const r = luaGenerator.valueToCode(block, "R", Order.NONE) || "0";
+  const g = luaGenerator.valueToCode(block, "G", Order.NONE) || "0";
+  const b = luaGenerator.valueToCode(block, "B", Order.NONE) || "0";
+  return [`colors.packRGB(${r}, ${g}, ${b})`, Order.NONE];
+};
+
+// Color: Unpack RGB
+Blockly.Blocks["color_unpackRGB"] = {
+  init: function () {
+    this.appendValueInput("COLOR")
+      .setCheck("Number")
+      .appendField("color.unpackRGB color");
+    this.setOutput(true, "Object");
+    this.setColour(65);
+    this.setTooltip("Unpacks a color into its RGB components.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:unpackRGB");
+  },
+};
+luaGenerator.forBlock["color_unpackRGB"] = function (block) {
+  const color = luaGenerator.valueToCode(block, "COLOR", Order.NONE) || "0";
+  return [`colors.unpackRGB(${color})`, Order.NONE];
+};
+
+// Color: To Blit
+Blockly.Blocks["color_toBlit"] = {
+  init: function () {
+    this.appendValueInput("COLOR")
+      .setCheck("Number")
+      .appendField("color.toBlit color");
+    this.setOutput(true, "String");
+    this.setColour(65);
+    this.setTooltip("Converts a color to a blit string.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:toBlit");
+  },
+};
+luaGenerator.forBlock["color_toBlit"] = function (block) {
+  const color = luaGenerator.valueToCode(block, "COLOR", Order.NONE) || "0";
+  return [`colors.toBlit(${color})`, Order.NONE];
+};
+
+// Color: From Blit
+Blockly.Blocks["color_fromBlit"] = {
+  init: function () {
+    this.appendValueInput("BLIT")
+      .setCheck("String")
+      .appendField("color.fromBlit blit");
+    this.setOutput(true, "Number");
+    this.setColour(65);
+    this.setTooltip("Converts a blit string to a color.");
+    this.setHelpUrl("https://tweaked.cc/module/colors.html#v:fromBlit");
+  },
+};
+luaGenerator.forBlock["color_fromBlit"] = function (block) {
+  const blit = luaGenerator.valueToCode(block, "BLIT", Order.NONE) || '""';
+  return [`colors.fromBlit(${blit})`, Order.NONE];
+};
+
+//#endregion
+
+
