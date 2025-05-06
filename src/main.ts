@@ -131,20 +131,3 @@ generateCodeButton.addEventListener("click", () => {
   const code = luaGenerator.workspaceToCode(workspace);
   codeViewer.value = code; // Display the generated Lua code
 });
-
-//craft os emulator
-const runCodeButton = document.getElementById("runCodeButton") as HTMLButtonElement;
-const craftosEmulator = document.getElementById("craftosEmulator") as HTMLIFrameElement;
-
-runCodeButton.addEventListener("click", () => {
-  const code = luaGenerator.workspaceToCode(workspace);
-
-  // Send the Lua code to the CraftOS-PC emulator
-  craftosEmulator.contentWindow?.postMessage(
-    {
-      type: "run",
-      code: code,
-    },
-    "*"
-  );
-});
