@@ -30,7 +30,6 @@
       </label>
     </div>
   </div>
-
   <input type="text" id="searchInput" placeholder="Search blocks..."
     style="margin-bottom: 10px; padding: 5px; width: 10%;" />
   <div id="blocklyDiv"></div>
@@ -221,5 +220,9 @@
 
   <script type="module" src="/src/main.ts"></script>
 </body>
+<div>
+  <button id="generateCodeButton">Generate Lua Code</button>
+  <textarea id="codeViewer" readonly style="width: 100%; height: 200px; margin-top: 10px;"></textarea>
+</div>
 
 </html>

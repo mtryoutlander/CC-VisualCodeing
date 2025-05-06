@@ -123,4 +123,28 @@ searchInput.addEventListener("input", () => {
   // Update the workspace with the filtered toolbox
   workspace.updateToolbox(clonedToolbox);
 });
+//code viewer
+const generateCodeButton = document.getElementById("generateCodeButton") as HTMLButtonElement;
+const codeViewer = document.getElementById("codeViewer") as HTMLTextAreaElement;
 
+generateCodeButton.addEventListener("click", () => {
+  const code = luaGenerator.workspaceToCode(workspace);
+  codeViewer.value = code; // Display the generated Lua code
+});
+
+//craft os emulator
+const runCodeButton = document.getElementById("runCodeButton") as HTMLButtonElement;
+const craftosEmulator = document.getElementById("craftosEmulator") as HTMLIFrameElement;
+
+runCodeButton.addEventListener("click", () => {
+  const code = luaGenerator.workspaceToCode(workspace);
+
+  // Send the Lua code to the CraftOS-PC emulator
+  craftosEmulator.contentWindow?.postMessage(
+    {
+      type: "run",
+      code: code,
+    },
+    "*"
+  );
+});
