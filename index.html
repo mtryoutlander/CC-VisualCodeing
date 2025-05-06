@@ -19,8 +19,10 @@
 
 <body>
   <h2>Blockly → Lua</h2>
+  <input type="text" id="searchInput" placeholder="Search blocks..."
+    style="margin-bottom: 10px; padding: 5px; width: 10%;" />
   <div id="blocklyDiv"></div>
-  <button id="generateButton">Generate Lua</button>
+  <button id="generateButton">Download Lua</button>
 
   <xml id="toolbox" style="display: none">
     <category name="Logic" colour="%{BKY_LOGIC_HUE}">
@@ -104,7 +106,7 @@
       <block type="color_unpackRGB"></block>
       <block type="color_toBlit"></block>
       <block type="color_fromBlit"></block>
-      </category> 
+    </category>
     <category name="Turtle" colour="290">
       <block type="turtle_move"></block>
       <block type="turtle_turn"></block>
@@ -201,9 +203,10 @@
       <block type="computer_getID"></block>
       <block type="computer_isOn"></block>
       <block type="computer_getLabel"></block>
-      </category>
+    </category>
+    </category>
 
-  </category>
+  </xml>
 
   <script type="module" src="/src/main.ts"></script>
 </body>
