@@ -15,197 +15,214 @@
       padding: 10px 20px;
     }
   </style>
-  <script type="module" crossorigin src="/CC-VisualCodeing/assets/index-CYRpeUkP.js"></script>
+  <script type="module" crossorigin src="/CC-VisualCodeing/assets/index-B1EbFKb2.js"></script>
 </head>
 
 <body>
   <h2>Blockly → Lua</h2>
+  <div class="dropdown">
+    <button onclick="modDropdown()">Select Mod</button>
+    <div id="mods" class="dropdown-content">
+      <label>
+        <input type="checkbox" name="mod" value="Basic" checked />Basic
+      </label>
+      <label>
+        <input type="checkbox" name="mod" value="CC:Tweaked" checked />CC:Tweaked
+      </label>
+    </div>
+  </div>
+  <input type="text" id="searchInput" placeholder="Search blocks..."
+    style="margin-bottom: 10px; padding: 5px; width: 10%;" />
   <div id="blocklyDiv"></div>
-  <button id="generateButton">Generate Lua</button>
+
+  <button id="generateButton">Download Lua</button>
 
   <xml id="toolbox" style="display: none">
     <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_null"></block>
-      <block type="logic_ternary"></block>
+      <block type="controls_if" data-mod="Basic"></block>
+      <block type="logic_compare" data-mod="Basic"></block>
+      <block type="logic_operation" data-mod="Basic"></block>
+      <block type="logic_negate" data-mod="Basic"></block>
+      <block type="logic_boolean" data-mod="Basic"></block>
+      <block type="logic_null" data-mod="Basic"></block>
+      <block type="logic_ternary" data-mod="Basic"></block>
     </category>
     <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="controls_repeat_ext"></block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for"></block>
-      <block type="controls_forEach"></block>
-      <block type="controls_flow_statements"></block>
+      <block type="controls_repeat_ext" data-mod="Basic"></block>
+      <block type="controls_whileUntil" data-mod="Basic"></block>
+      <block type="controls_for" data-mod="Basic"></block>
+      <block type="controls_forEach" data-mod="Basic"></block>
+      <block type="controls_flow_statements" data-mod="Basic"></block>
     </category>
     <category name="Math" colour="%{BKY_MATH_HUE}">
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="math_single"></block>
-      <block type="math_trig"></block>
-      <block type="math_constant"></block>
-      <block type="math_number_property"></block>
-      <block type="math_round"></block>
-      <block type="math_on_list"></block>
-      <block type="math_modulo"></block>
-      <block type="math_constrain"></block>
-      <block type="math_random_int"></block>
-      <block type="math_random_float"></block>
+      <block type="math_number" data-mod="Basic"></block>
+      <block type="math_arithmetic" data-mod="Basic"></block>
+      <block type="math_single" data-mod="Basic"></block>
+      <block type="math_trig" data-mod="Basic"></block>
+      <block type="math_constant" data-mod="Basic"></block>
+      <block type="math_number_property" data-mod="Basic"></block>
+      <block type="math_round" data-mod="Basic"></block>
+      <block type="math_on_list" data-mod="Basic"></block>
+      <block type="math_modulo" data-mod="Basic"></block>
+      <block type="math_constrain" data-mod="Basic"></block>
+      <block type="math_random_int" data-mod="Basic"></block>
+      <block type="math_random_float" data-mod="Basic"></block>
     </category>
     <category name="Text" colour="%{BKY_TEXTS_HUE}">
-      <block type="text"></block>
-      <block type="text_join"></block>
-      <block type="text_append"></block>
-      <block type="text_length"></block>
-      <block type="text_isEmpty"></block>
-      <block type="text_indexOf"></block>
-      <block type="text_charAt"></block>
-      <block type="text_getSubstring"></block>
-      <block type="text_changeCase"></block>
-      <block type="text_trim"></block>
-      <block type="text_print"></block>
-      <block type="text_prompt_ext"></block>
+      <block type="text" data-mod="Basic"></block>
+      <block type="text_join" data-mod="Basic"></block>
+      <block type="text_append" data-mod="Basic"></block>
+      <block type="text_length" data-mod="Basic"></block>
+      <block type="text_isEmpty" data-mod="Basic"></block>
+      <block type="text_indexOf" data-mod="Basic"></block>
+      <block type="text_charAt" data-mod="Basic"></block>
+      <block type="text_getSubstring" data-mod="Basic"></block>
+      <block type="text_changeCase" data-mod="Basic"></block>
+      <block type="text_trim" data-mod="Basic"></block>
+      <block type="text_print" data-mod="Basic"></block>
+      <block type="text_prompt_ext" data-mod="Basic"></block>
     </category>
     <category name="Lists" colour="%{BKY_LISTS_HUE}">
-      <block type="lists_create_with"></block>
-      <block type="lists_repeat"></block>
-      <block type="lists_length"></block>
-      <block type="lists_isEmpty"></block>
-      <block type="lists_indexOf"></block>
-      <block type="lists_getIndex"></block>
-      <block type="lists_setIndex"></block>
-      <block type="lists_getSublist"></block>
-      <block type="lists_split"></block>
-      <block type="lists_sort"></block>
+      <block type="lists_create_with" data-mod="Basic"></block>
+      <block type="lists_repeat" data-mod="Basic"></block>
+      <block type="lists_length" data-mod="Basic"></block>
+      <block type="lists_isEmpty" data-mod="Basic"></block>
+      <block type="lists_indexOf" data-mod="Basic"></block>
+      <block type="lists_getIndex" data-mod="Basic"></block>
+      <block type="lists_setIndex" data-mod="Basic"></block>
+      <block type="lists_getSublist" data-mod="Basic"></block>
+      <block type="lists_split" data-mod="Basic"></block>
+      <block type="lists_sort" data-mod="Basic"></block>
     </category>
     <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}"></category>
     <category name="Functions" colour="%{BKY_PROCEDURES_HUE}">
-      <block type="procedures_defnoreturn"></block>
-      <block type="procedures_defreturn"></block>
-      <block type="procedures_callnoreturn"></block>
-      <block type="procedures_callreturn"></block>
+      <block type="procedures_defnoreturn" data-mod="Basic"></block>
+      <block type="procedures_defreturn" data-mod="Basic"></block>
+      <block type="procedures_callnoreturn" data-mod="Basic"></block>
+      <block type="procedures_callreturn" data-mod="Basic"></block>
     </category>
     <category name="CC" colour="290">
-      <block type="G_sleep"></block>
-      <block type="G_write"></block>
-      <block type="G_print"></block>
-      <block type="G_printError"></block>
-      <block type="G_read"></block>
-      <block type="G__Host"></block>
-      <block type="G__CC_DEFAULT_SETTING"></block>
+      <block type="G_sleep" data-mod="CC:Tweaked"></block>
+      <block type="G_write" data-mod="CC:Tweaked"></block>
+      <block type="G_print" data-mod="CC:Tweaked"></block>
+      <block type="G_printError" data-mod="CC:Tweaked"></block>
+      <block type="G_read" data-mod="CC:Tweaked"></block>
+      <block type="G__Host" data-mod="CC:Tweaked"></block>
+      <block type="G__CC_DEFAULT_SETTING" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Colour" colour="290">
-      <block type="color_selector"></block>
-      <block type="color_combine"></block>
-      <block type="color_subtract"></block>
-      <block type="color_test"></block>
-      <block type="color_packRGB"></block>
-      <block type="color_unpackRGB"></block>
-      <block type="color_toBlit"></block>
-      <block type="color_fromBlit"></block>
-      </category> 
+      <block type="color_selector" data-mod="CC:Tweaked"></block>
+      <block type="color_combine" data-mod="CC:Tweaked"></block>
+      <block type="color_subtract" data-mod="CC:Tweaked"></block>
+      <block type="color_test" data-mod="CC:Tweaked"></block>
+      <block type="color_packRGB" data-mod="CC:Tweaked"></block>
+      <block type="color_unpackRGB" data-mod="CC:Tweaked"></block>
+      <block type="color_toBlit" data-mod="CC:Tweaked"></block>
+      <block type="color_fromBlit" data-mod="CC:Tweaked"></block>
+    </category>
     <category name="Turtle" colour="290">
-      <block type="turtle_move"></block>
-      <block type="turtle_turn"></block>
-      <block type="turtle_dig"></block>
-      <block type="turtle_place"></block>
-      <block type="turtle_drop"></block>
-      <block type="turtle_getItemDetail"></block>
-      <block type="turtle_getItemCount"></block>
-      <block type="turtle_getItemSpace"></block>
-      <block type="turtle_getSelectedSlot"></block>
-      <block type="turtle_select"></block>
-      <block type="turtle_equip"></block>
-      <block type="turtle_getEquipped"></block>
-      <block type="turtle_getFuelLevel"></block>
-      <block type="turtle_refuel"></block>
-      <block type="turtle_transferTo"></block>
-      <block type="turtle_compareTo"></block>
-      <block type="turtle_detect"></block>
-      <block type="turtle_inspect"></block>
-      <block type="turtle_compare"></block>
-      <block type="turtle_craft"></block>
-      <block type="turtle_attack"></block>
-      <block type="turtle_suck"></block>
+      <block type="turtle_move" data-mod="CC:Tweaked"></block>
+      <block type="turtle_turn" data-mod="CC:Tweaked"></block>
+      <block type="turtle_dig" data-mod="CC:Tweaked"></block>
+      <block type="turtle_place" data-mod="CC:Tweaked"></block>
+      <block type="turtle_drop" data-mod="CC:Tweaked"></block>
+      <block type="turtle_getItemDetail" data-mod="CC:Tweaked"></block>
+      <block type="turtle_getItemCount" data-mod="CC:Tweaked"></block>
+      <block type="turtle_getItemSpace" data-mod="CC:Tweaked"></block>
+      <block type="turtle_getSelectedSlot" data-mod="CC:Tweaked"></block>
+      <block type="turtle_select" data-mod="CC:Tweaked"></block>
+      <block type="turtle_equip" data-mod="CC:Tweaked"></block>
+      <block type="turtle_getEquipped" data-mod="CC:Tweaked"></block>
+      <block type="turtle_getFuelLevel" data-mod="CC:Tweaked"></block>
+      <block type="turtle_refuel" data-mod="CC:Tweaked"></block>
+      <block type="turtle_transferTo" data-mod="CC:Tweaked"></block>
+      <block type="turtle_compareTo" data-mod="CC:Tweaked"></block>
+      <block type="turtle_detect" data-mod="CC:Tweaked"></block>
+      <block type="turtle_inspect" data-mod="CC:Tweaked"></block>
+      <block type="turtle_compare" data-mod="CC:Tweaked"></block>
+      <block type="turtle_craft" data-mod="CC:Tweaked"></block>
+      <block type="turtle_attack" data-mod="CC:Tweaked"></block>
+      <block type="turtle_suck" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Redstone" colour="290">
-      <block type="redstone_getSides"></block>
-      <block type="redstone_setOutput"></block>
-      <block type="redstone_getOutput"></block>
-      <block type="redstone_getInput"></block>
-      <block type="redstone_setAnalogOutput"></block>
-      <block type="redstone_getAnalogOutput"></block>
-      <block type="redstone_getAnalogInput"></block>
-      <block type="redstone_setBundledOutput"></block>
-      <block type="redstone_getBundledOutput"></block>
-      <block type="redstone_getBundledInput"></block>
-      <block type="redstone_testBundledInput"></block>
+      <block type="redstone_getSides" data-mod="CC:Tweaked"></block>
+      <block type="redstone_setOutput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_getOutput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_getInput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_setAnalogOutput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_getAnalogOutput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_getAnalogInput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_setBundledOutput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_getBundledOutput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_getBundledInput" data-mod="CC:Tweaked"></block>
+      <block type="redstone_testBundledInput" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Printer" colour="290">
-      <block type="printer_write"></block>
-      <block type="printer_getCursorPos"></block>
-      <block type="printer_setCursorPos"></block>
-      <block type="printer_getPageSize"></block>
-      <block type="printer_newPage"></block>
-      <block type="printer_endPage"></block>
-      <block type="printer_setPageTitle"></block>
-      <block type="printer_getInkLevel"></block>
-      <block type="printer_getPaperLevel"></block>
+      <block type="printer_write" data-mod="CC:Tweaked"></block>
+      <block type="printer_getCursorPos" data-mod="CC:Tweaked"></block>
+      <block type="printer_setCursorPos" data-mod="CC:Tweaked"></block>
+      <block type="printer_getPageSize" data-mod="CC:Tweaked"></block>
+      <block type="printer_newPage" data-mod="CC:Tweaked"></block>
+      <block type="printer_endPage" data-mod="CC:Tweaked"></block>
+      <block type="printer_setPageTitle" data-mod="CC:Tweaked"></block>
+      <block type="printer_getInkLevel" data-mod="CC:Tweaked"></block>
+      <block type="printer_getPaperLevel" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Disk" colour="290">
-      <block type="disk_isPresent"></block>
-      <block type="disk_getLabel"></block>
-      <block type="disk_setLabel"></block>
-      <block type="disk_hasData"></block>
-      <block type="disk_getMountPath"></block>
-      <block type="disk_hasAudio"></block>
-      <block type="disk_getAudioTitle"></block>
-      <block type="disk_playAudio"></block>
-      <block type="disk_stopAudio"></block>
-      <block type="disk_eject"></block>
-      <block type="disk_getID"></block>
+      <block type="disk_isPresent" data-mod="CC:Tweaked"></block>
+      <block type="disk_getLabel" data-mod="CC:Tweaked"></block>
+      <block type="disk_setLabel" data-mod="CC:Tweaked"></block>
+      <block type="disk_hasData" data-mod="CC:Tweaked"></block>
+      <block type="disk_getMountPath" data-mod="CC:Tweaked"></block>
+      <block type="disk_hasAudio" data-mod="CC:Tweaked"></block>
+      <block type="disk_getAudioTitle" data-mod="CC:Tweaked"></block>
+      <block type="disk_playAudio" data-mod="CC:Tweaked"></block>
+      <block type="disk_stopAudio" data-mod="CC:Tweaked"></block>
+      <block type="disk_eject" data-mod="CC:Tweaked"></block>
+      <block type="disk_getID" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Monitor" colour="290">
-      <block type="monitor_setTextScale"></block>
-      <block type="monitor_getTextScale"></block>
-      <block type="monitor_write"></block>
-      <block type="monitor_scroll"></block>
-      <block type="monitor_getCursorPos"></block>
-      <block type="monitor_setCursorPos"></block>
-      <block type="monitor_getCursorBlink"></block>
-      <block type="monitor_setCursorBlink"></block>
-      <block type="monitor_getSize"></block>
-      <block type="monitor_clear"></block>
-      <block type="monitor_clearLine"></block>
-      <block type="monitor_getTextColour"></block>
-      <block type="monitor_setTextColour"></block>
-      <block type="monitor_getBackgroundColour"></block>
-      <block type="monitor_setBackgroundColour"></block>
-      <block type="monitor_isColour"></block>
-      <block type="monitor_blit"></block>
-      <block type="monitor_setPaletteColour"></block>
-      <block type="monitor_getPaletteColour"></block>
+      <block type="monitor_setTextScale" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getTextScale" data-mod="CC:Tweaked"></block>
+      <block type="monitor_write" data-mod="CC:Tweaked"></block>
+      <block type="monitor_scroll" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getCursorPos" data-mod="CC:Tweaked"></block>
+      <block type="monitor_setCursorPos" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getCursorBlink" data-mod="CC:Tweaked"></block>
+      <block type="monitor_setCursorBlink" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getSize" data-mod="CC:Tweaked"></block>
+      <block type="monitor_clear" data-mod="CC:Tweaked"></block>
+      <block type="monitor_clearLine" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getTextColour" data-mod="CC:Tweaked"></block>
+      <block type="monitor_setTextColour" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getBackgroundColour" data-mod="CC:Tweaked"></block>
+      <block type="monitor_setBackgroundColour" data-mod="CC:Tweaked"></block>
+      <block type="monitor_isColour" data-mod="CC:Tweaked"></block>
+      <block type="monitor_blit" data-mod="CC:Tweaked"></block>
+      <block type="monitor_setPaletteColour" data-mod="CC:Tweaked"></block>
+      <block type="monitor_getPaletteColour" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Speaker" colour="290">
-      <block type="speaker_instrument"></block>
-      <block type="speaker_playNote"></block>
-      <block type="speaker_playSound"></block>
-      <block type="speaker_playAudio"></block>
-      <block type="speaker_stop"></block>
+      <block type="speaker_instrument" data-mod="CC:Tweaked"></block>
+      <block type="speaker_playNote" data-mod="CC:Tweaked"></block>
+      <block type="speaker_playSound" data-mod="CC:Tweaked"></block>
+      <block type="speaker_playAudio" data-mod="CC:Tweaked"></block>
+      <block type="speaker_stop" data-mod="CC:Tweaked"></block>
     </category>
     <category name="Computer" colour="290">
-      <block type="computer_turnOn"></block>
-      <block type="computer_shutdown"></block>
-      <block type="computer_reboot"></block>
-      <block type="computer_getID"></block>
-      <block type="computer_isOn"></block>
-      <block type="computer_getLabel"></block>
-      </category>
-
-  </category>
+      <block type="computer_turnOn" data-mod="CC:Tweaked"></block>
+      <block type="computer_shutdown" data-mod="CC:Tweaked"></block>
+      <block type="computer_reboot" data-mod="CC:Tweaked"></block>
+      <block type="computer_getID" data-mod="CC:Tweaked"></block>
+      <block type="computer_isOn" data-mod="CC:Tweaked"></block>
+      <block type="computer_getLabel" data-mod="CC:Tweaked"></block>
+    </category>
+  </xml>
 
 </body>
+<div>
+  <button id="generateCodeButton">Generate Lua Code</button>
+  <textarea id="codeViewer" readonly style="width: 100%; height: 200px; margin-top: 10px;"></textarea>
+</div>
 
 </html>
