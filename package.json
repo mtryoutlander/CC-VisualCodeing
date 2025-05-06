@@ -13,7 +13,7 @@
     "@types/node": "^22.15.3",
     "gh-pages": "^6.3.0",
     "typescript": "~5.7.2",
-    "vite": "^6.3.1"
+    "vite": "^6.3.5"
   },
   "dependencies": {
     "@blockly/theme-dark": "^7.0.10",
