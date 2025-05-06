@@ -2,6 +2,7 @@ import * as Blockly from "blockly";
 import "blockly/blocks"; // Make sure standard blocks are loaded
 import { luaGenerator } from "blockly/lua";
 import "./CCBlocks";
+import { log } from "console";
 
 // Inject Blockly into the div
 const workspace = Blockly.inject("blocklyDiv", {
@@ -9,8 +10,66 @@ const workspace = Blockly.inject("blocklyDiv", {
 });
 
 const toolbox = document.getElementById("toolbox") as HTMLElement;
-const originalToolbox = toolbox; // Store the original toolbox as XML
+var filteredToolbox = toolbox.cloneNode(true) as HTMLElement;
 
+const modChecked = document.querySelectorAll('input[name="mod"]');
+
+(window as any).modDropdown = function modDropdown() {
+  const dropdown = document.getElementById("mods") as HTMLDivElement;
+  if (dropdown.style.display === "none") {
+    dropdown.style.display = "block";
+  } else {
+    dropdown.style.display = "none";
+  }
+};
+// Function to filter blocks based on selected mod
+modChecked.forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    const selectedMod = (document.querySelectorAll('input[name="mod"]:checked'));
+
+    // Clone the original toolbox to filter it
+    const clonedToolbox = toolbox.cloneNode(true) as HTMLElement;
+    const categories = clonedToolbox.querySelectorAll("category");
+
+    categories.forEach((category) => {
+      const categoryName = category.getAttribute("name") || "";
+
+      // Skip filtering for the "Variables" category
+      if (categoryName === "Variables") {
+        return;
+      }
+      const blocks = category.querySelectorAll("block");
+
+      let hasVisibleBlock = false;
+
+      blocks.forEach((block) => {
+        const blockMod = block.getAttribute("data-mod") || "";
+        let matched = false;
+        selectedMod.forEach(element => {
+          const x = element as HTMLInputElement;
+          if (blockMod === x.value) {
+            hasVisibleBlock = true; // Keep the block if its mod matches the selected mod
+            matched = true;
+          }
+
+        });
+
+        if (!matched) {
+          block.remove(); // Remove blocks not belonging to the selected mod
+        }
+      });
+
+      // Remove the category if it has no visible blocks
+      if (!hasVisibleBlock) {
+        category.remove();
+      }
+    });
+
+    // Update the workspace with the filtered toolbox
+    workspace.updateToolbox(clonedToolbox);
+    filteredToolbox = clonedToolbox; // Store the filtered toolbox
+  });
+});
 // Generate Lua and download it
 document.getElementById("generateButton")?.addEventListener("click", () => {
   const luaCode = luaGenerator.workspaceToCode(workspace);
@@ -28,15 +87,21 @@ searchInput.addEventListener("input", () => {
 
   // If the search input is empty, reset the toolbox to its original state
   if (!query) {
-    workspace.updateToolbox(originalToolbox); // Reset to the original toolbox
+    workspace.updateToolbox(filteredToolbox); // Reset to the original toolbox
     return;
   }
 
   // Clone the original toolbox to filter it
-  const filteredToolbox = originalToolbox.cloneNode(true) as HTMLElement;
-  const categories = filteredToolbox.querySelectorAll("category");
+  const clonedToolbox = filteredToolbox.cloneNode(true) as HTMLElement;
+  const categories = clonedToolbox.querySelectorAll("category");
 
   categories.forEach((category) => {
+    const categoryName = category.getAttribute("name") || "";
+
+    // Skip filtering for the "Variables" category
+    if (categoryName === "Variables") {
+      return;
+    }
     const blocks = category.querySelectorAll("block");
     let hasVisibleBlock = false;
 
@@ -56,6 +121,6 @@ searchInput.addEventListener("input", () => {
   });
 
   // Update the workspace with the filtered toolbox
-  workspace.updateToolbox(filteredToolbox);
+  workspace.updateToolbox(clonedToolbox);
 });
 
