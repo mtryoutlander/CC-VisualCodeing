@@ -910,7 +910,6 @@ luaGenerator.forBlock["redstone_testBundledInput"] = function (block) {
 };
 //#endregion
 
-
 //#region Printer
 //Printer: Write
 Blockly.Blocks["printer_write"] = {
@@ -1057,7 +1056,6 @@ luaGenerator.forBlock["printer_getPaperLevel"] = function () {
 };
 
 //#endregion
-
 
 //#region Disk
 
@@ -1773,7 +1771,6 @@ luaGenerator.forBlock["color_fromBlit"] = function (block) {
 
 //#endregion
 
-
 //#region Speaker
 
 // Speaker: Instrument Selector
@@ -1901,7 +1898,6 @@ luaGenerator.forBlock["speaker_stop"] = function () {
 
 //#endregion
 
-
 //#region Computer
 
 // Computer: Turn On
@@ -1992,3 +1988,283 @@ luaGenerator.forBlock["computer_getLabel"] = function () {
 };
 
 //#endregion
+
+//#region TextUtils
+
+// TextUtils: Slow Write
+Blockly.Blocks["textutils_slowWrite"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("textutils.slowWrite text");
+    this.appendValueInput("RATE")
+      .setCheck("Number")
+      .appendField("rate");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Writes text to the terminal slowly at the specified rate.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:slowWrite");
+  },
+};
+luaGenerator.forBlock["textutils_slowWrite"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  const rate = luaGenerator.valueToCode(block, "RATE", Order.NONE) || "20";
+  return `textutils.slowWrite(${text}, ${rate})\n`;
+};
+
+// TextUtils: Slow Print
+Blockly.Blocks["textutils_slowPrint"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("textutils.slowPrint text");
+    this.appendValueInput("RATE")
+      .setCheck("Number")
+      .appendField("rate");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Prints text to the terminal slowly at the specified rate.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:slowPrint");
+  },
+};
+luaGenerator.forBlock["textutils_slowPrint"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  const rate = luaGenerator.valueToCode(block, "RATE", Order.NONE) || "20";
+  return `textutils.slowPrint(${text}, ${rate})\n`;
+};
+
+// TextUtils: Format Time
+Blockly.Blocks["textutils_formatTime"] = {
+  init: function () {
+    this.appendValueInput("TIME")
+      .setCheck("Number")
+      .appendField("textutils.formatTime time");
+    this.appendDummyInput()
+      .appendField("24-hour format")
+      .appendField(new Blockly.FieldDropdown([
+        ["true", "true"],
+        ["false", "false"]
+      ]), "FORMAT");
+    this.setOutput(true, "String");
+    this.setColour(120);
+    this.setTooltip("Formats a time value into a human-readable string.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:formatTime");
+  },
+};
+luaGenerator.forBlock["textutils_formatTime"] = function (block) {
+  const time = luaGenerator.valueToCode(block, "TIME", Order.NONE) || "0";
+  const format = block.getFieldValue("FORMAT");
+  return [`textutils.formatTime(${time}, ${format})`, Order.NONE];
+};
+// TextUtils: Paged Print
+Blockly.Blocks["textutils_pagedPrint"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("textutils.pagedPrint text");
+    this.appendValueInput("PAGE_LENGTH")
+      .setCheck("Number")
+      .appendField("page length");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Prints text to the terminal with pagination.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:pagedPrint");
+  },
+};
+luaGenerator.forBlock["textutils_pagedPrint"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  const pageLength = luaGenerator.valueToCode(block, "PAGE_LENGTH", Order.NONE) || "20";
+  return `textutils.pagedPrint(${text}, ${pageLength})\n`;
+};
+
+// TextUtils: Tabulate
+Blockly.Blocks["textutils_tabulate"] = {
+  init: function () {
+    this.appendValueInput("DATA")
+      .setCheck("Array")
+      .appendField("textutils.tabulate data");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Displays data in a tabular format.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:tabulate");
+  },
+};
+luaGenerator.forBlock["textutils_tabulate"] = function (block) {
+  const data = luaGenerator.valueToCode(block, "DATA", Order.NONE) || "{}";
+  return `textutils.tabulate(${data})\n`;
+};
+
+// TextUtils: Paged Tabulate
+Blockly.Blocks["textutils_pagedTabulate"] = {
+  init: function () {
+    this.appendValueInput("DATA")
+      .setCheck("Array")
+      .appendField("textutils.pagedTabulate data");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Displays data in a tabular format with pagination.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:pagedTabulate");
+  },
+};
+luaGenerator.forBlock["textutils_pagedTabulate"] = function (block) {
+  const data = luaGenerator.valueToCode(block, "DATA", Order.NONE) || "{}";
+  return `textutils.pagedTabulate(${data})\n`;
+};
+
+// TextUtils: Empty JSON Array
+Blockly.Blocks["textutils_empty_json_array"] = {
+  init: function () {
+    this.appendDummyInput().appendField("textutils.emptyJSON");
+    this.setOutput(true, "Array");
+    this.setColour(120);
+    this.setTooltip("Returns an empty JSON array.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:emptyJSON");
+  },
+};
+luaGenerator.forBlock["textutils_empty_json_array"] = function () {
+  return ["textutils.empty_JSON_array", Order.NONE];
+};
+
+// TextUtils: JSON Null
+Blockly.Blocks["textutils_json_null"] = {
+  init: function () {
+    this.appendDummyInput().appendField("textutils.jsonNull");
+    this.setOutput(true, "Null");
+    this.setColour(120);
+    this.setTooltip("Returns a JSON null value.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:jsonNull");
+  },
+};
+luaGenerator.forBlock["textutils_json_null"] = function () {
+  return ["textutils.json_null", Order.NONE];
+};
+
+// TextUtils: Serialise
+Blockly.Blocks["textutils_serialise"] = {
+  init: function () {
+    this.appendValueInput("DATA")
+      .setCheck("Object")
+      .appendField("textutils.serialise data");
+    this.appendValueInput("OPTS")
+      .setCheck(null)
+      .appendField("options (Lua table)");
+    this.setOutput(true, "String");
+    this.setColour(120);
+    this.setTooltip("Serialises a Lua table into a string with optional Lua table formatting.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:serialise");
+  },
+};
+luaGenerator.forBlock["textutils_serialise"] = function (block) {
+  const data = luaGenerator.valueToCode(block, "DATA", Order.NONE) || "{}";
+  const opts = luaGenerator.valueToCode(block, "OPTS", Order.NONE) || "{}";
+  // Remove quotes from the options if they exist
+  const rawOpts = opts.startsWith('"') && opts.endsWith('"') ? opts.slice(1, -1) : opts;
+
+  return [`textutils.serialise(${data}, ${opts})`, Order.NONE];
+};
+
+// TextUtils: Deserialise
+Blockly.Blocks["textutils_unserialise"] = {
+  init: function () {
+    this.appendValueInput("STRING")
+      .setCheck("String")
+      .appendField("textutils.unserialise string");
+    this.setOutput(true, "Object");
+    this.setColour(120);
+    this.setTooltip("Deserialises a string into a Lua table.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:deserialise");
+  },
+};
+luaGenerator.forBlock["textutils_deserialise"] = function (block) {
+  const string = luaGenerator.valueToCode(block, "STRING", Order.NONE) || '""';
+  return [`textutils.unserialise(${string})`, Order.NONE];
+};
+
+// TextUtils: Serialise JSON
+Blockly.Blocks["textutils_serialiseJSON"] = {
+  init: function () {
+    this.appendValueInput("DATA")
+      .setCheck("Object")
+      .appendField("textutils.serialiseJSON data");
+    this.appendValueInput("OPTIONS")
+      .setCheck("String")
+      .appendField("options");
+    this.setOutput(true, "String");
+    this.setColour(120);
+    this.setTooltip("Serialises a Lua table into a JSON string with optional formatting.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:serialiseJSON");
+  },
+};
+luaGenerator.forBlock["textutils_serialiseJSON"] = function (block) {
+  const data = luaGenerator.valueToCode(block, "DATA", Order.NONE) || "{}";
+  const options = luaGenerator.valueToCode(block, "OPTIONS", Order.NONE) || "{}";
+  return [`textutils.serialiseJSON(${data}, ${options})`, Order.NONE];
+};
+
+// TextUtils: Unserialise JSON
+Blockly.Blocks["textutils_unserialiseJSON"] = {
+  init: function () {
+    this.appendValueInput("STRING")
+      .setCheck("String")
+      .appendField("textutils.unserialiseJSON string");
+    this.appendValueInput("Opts")
+      .setCheck("String")
+      .appendField("textutils.unserialiseJSON options");
+    this.setOutput(true, "Object");
+    this.setColour(120);
+    this.setTooltip("Deserialises a JSON string into a Lua table.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:unserialiseJSON");
+  },
+};
+luaGenerator.forBlock["textutils_unserialiseJSON"] = function (block) {
+  const string = luaGenerator.valueToCode(block, "STRING", Order.NONE) || "{}";
+  const opts = luaGenerator.valueToCode(block, "Opts", Order.NONE) || "{}";
+  return [`textutils.unserialiseJSON(${string},${opts})`, Order.NONE];
+};
+
+// TextUtils: URL Encode
+Blockly.Blocks["textutils_urlEncode"] = {
+  init: function () {
+    this.appendValueInput("STRING")
+      .setCheck("String")
+      .appendField("textutils.urlEncode string");
+    this.setOutput(true, "String");
+    this.setColour(120);
+    this.setTooltip("Encodes a string for use in a URL.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:urlEncode");
+  },
+};
+luaGenerator.forBlock["textutils_urlEncode"] = function (block) {
+  const string = luaGenerator.valueToCode(block, "STRING", Order.NONE) || '""';
+  return [`textutils.urlEncode(${string})`, Order.NONE];
+};
+
+// TextUtils: Complete
+Blockly.Blocks["textutils_complete"] = {
+  init: function () {
+    this.appendValueInput("PARTIAL")
+      .setCheck("String")
+      .appendField("textutils.complete partial");
+    this.appendValueInput("TABLE")
+      .setCheck("Array")
+      .appendField("table");
+    this.setOutput(true, "Array");
+    this.setColour(120);
+    this.setTooltip("Completes a partial string using a table of possible completions.");
+    this.setHelpUrl("https://tweaked.cc/module/textutils.html#v:complete");
+  },
+};
+luaGenerator.forBlock["textutils_complete"] = function (block) {
+  const partial = luaGenerator.valueToCode(block, "PARTIAL", Order.NONE) || '""';
+  const table = luaGenerator.valueToCode(block, "TABLE", Order.NONE) || "{}";
+  return [`textutils.complete(${partial}, ${table})`, Order.NONE];
+};
+
+//#endregion
+
+
