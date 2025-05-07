@@ -2302,7 +2302,8 @@ Blockly.Blocks["Window_write"] = {
       .appendField("window");
     this.appendValueInput("TEXT")
       .setCheck("String")
-      .appendField(".write text");
+      .appendField("write");
+    this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2410,6 +2411,7 @@ Blockly.Blocks["Window_setCursorPos"] = {
     this.appendValueInput("Y")
       .setCheck("Number")
       .appendField("Y");
+      this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2543,6 +2545,7 @@ Blockly.Blocks["Window_setCursorBlink"] = {
     this.appendValueInput("STATE")
       .setCheck("Boolean")
       .appendField(".setCursorBlink state");
+    this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2599,7 +2602,8 @@ Blockly.Blocks["Window_setTextColor"] = {
       .appendField("window");
     this.appendValueInput("COLOR")
       .setCheck("Number")
-      .appendField(".setTextColor color");
+      .appendField(".setTextColor color");      
+    this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2625,6 +2629,7 @@ Blockly.Blocks["Window_setPaletteColour"] = {
     this.appendValueInput("RGB")
       .setCheck("Object")
       .appendField("RGB");
+      this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2648,6 +2653,8 @@ Blockly.Blocks["Window_setBackgroundColour"] = {
     this.appendValueInput("COLOR")
       .setCheck("Number")
       .appendField(".setBackgroundColour color");
+      
+    this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2688,6 +2695,7 @@ Blockly.Blocks["Window_scroll"] = {
     this.appendValueInput("LINES")
       .setCheck("Number")
       .appendField(".scroll lines");
+      this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2746,6 +2754,7 @@ Blockly.Blocks["Window_setVisible"] = {
     this.appendValueInput("VISIBLE")
       .setCheck("Boolean")
       .appendField(".setVisible visible");
+      this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -2851,6 +2860,7 @@ Blockly.Blocks["Window_reposition"] = {
     this.appendValueInput("HEIGHT")
       .setCheck("Number")
       .appendField("height");
+    this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
