@@ -2711,3 +2711,477 @@ luaGenerator.forBlock["term_native"] = function () {
 
 //#endregion
 
+//#region Shell
+// Shell: Execute
+Blockly.Blocks["shell_execute"] = {
+  init: function () {
+    this.appendValueInput("COMMAND")
+      .setCheck("String")
+      .appendField("shell.execute command");
+    this.appendValueInput("ARG")
+      .setCheck("String")
+      .appendField("arg");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Executes a shell command with an argument.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:execute");
+  },
+};
+luaGenerator.forBlock["shell_execute"] = function (block) {
+  const command = luaGenerator.valueToCode(block, "COMMAND", Order.NONE) || '""';
+  const arg = luaGenerator.valueToCode(block, "ARG", Order.NONE) || '""';
+  return [`shell.execute(${command}, ${arg})`, Order.NONE];
+};
+
+// Shell: Run
+Blockly.Blocks["shell_run"] = {
+  init: function () {
+    this.appendValueInput("COMMAND")
+      .setCheck("String")
+      .appendField("shell.run command");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Runs a shell command.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:run");
+  },
+};
+luaGenerator.forBlock["shell_run"] = function (block) {
+  const command = luaGenerator.valueToCode(block, "COMMAND", Order.NONE) || '""';
+  return [`shell.run(${command})`, Order.NONE];
+};
+
+// Shell: Exit
+Blockly.Blocks["shell_exit"] = {
+  init: function () {
+    this.appendDummyInput().appendField("shell.exit");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Exits the shell.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:exit");
+  },
+};
+luaGenerator.forBlock["shell_exit"] = function () {
+  return "shell.exit()\n";
+};
+
+// Shell: Dir
+Blockly.Blocks["shell_dir"] = {
+  init: function () {
+    this.appendDummyInput().appendField("shell.dir");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Gets the current working directory.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:dir");
+  },
+};
+luaGenerator.forBlock["shell_dir"] = function () {
+  return ["shell.dir()", Order.NONE];
+};
+
+// Shell: Set Dir
+Blockly.Blocks["shell_setDir"] = {
+  init: function () {
+    this.appendValueInput("DIR")
+      .setCheck("String")
+      .appendField("shell.setDir directory");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the current working directory.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:setDir");
+  },
+};
+luaGenerator.forBlock["shell_setDir"] = function (block) {
+  const dir = luaGenerator.valueToCode(block, "DIR", Order.NONE) || '""';
+  return `shell.setDir(${dir})\n`;
+};
+
+// Shell: Path
+Blockly.Blocks["shell_path"] = {
+  init: function () {
+    this.appendDummyInput().appendField("shell.path");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Gets the shell's path.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:path");
+  },
+};
+luaGenerator.forBlock["shell_path"] = function () {
+  return ["shell.path()", Order.NONE];
+};
+
+// Shell: Set Path
+Blockly.Blocks["shell_setPath"] = {
+  init: function () {
+    this.appendValueInput("PATH")
+      .setCheck("String")
+      .appendField("shell.setPath path");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the shell's path.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:setPath");
+  },
+};
+luaGenerator.forBlock["shell_setPath"] = function (block) {
+  const path = luaGenerator.valueToCode(block, "PATH", Order.NONE) || '""';
+  return `shell.setPath(${path})\n`;
+};
+
+// Shell: Resolve
+Blockly.Blocks["shell_resolve"] = {
+  init: function () {
+    this.appendValueInput("PATH")
+      .setCheck("String")
+      .appendField("shell.resolve path");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Resolves a relative path to an absolute path.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:resolve");
+  },
+};
+luaGenerator.forBlock["shell_resolve"] = function (block) {
+  const path = luaGenerator.valueToCode(block, "PATH", Order.NONE) || '""';
+  return [`shell.resolve(${path})`, Order.NONE];
+};
+
+// Shell: Resolve Program
+Blockly.Blocks["shell_resolveProgram"] = {
+  init: function () {
+    this.appendValueInput("PROGRAM")
+      .setCheck("String")
+      .appendField("shell.resolveProgram program");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Resolves a program name to its full path.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:resolveProgram");
+  },
+};
+luaGenerator.forBlock["shell_resolveProgram"] = function (block) {
+  const program = luaGenerator.valueToCode(block, "PROGRAM", Order.NONE) || '""';
+  return [`shell.resolveProgram(${program})`, Order.NONE];
+};
+
+// Shell: Programs
+Blockly.Blocks["shell_programs"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("shell.programs")
+      .appendField("hidden")
+      .appendField(new Blockly.FieldDropdown([
+        ["true", "true"],
+        ["false", "false"]
+      ]), "HIDDEN");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets a list of available programs, optionally including hidden ones.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:programs");
+  },
+};
+luaGenerator.forBlock["shell_programs"] = function (block) {
+  const hidden = block.getFieldValue("HIDDEN") || "false";
+  return [`shell.programs(${hidden})`, Order.NONE];
+};
+
+// Shell: Complete
+Blockly.Blocks["shell_complete"] = {
+  init: function () {
+    this.appendValueInput("PARTIAL")
+      .setCheck("String")
+      .appendField("shell.complete partial");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets completions for a partial command.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:complete");
+  },
+};
+luaGenerator.forBlock["shell_complete"] = function (block) {
+  const partial = luaGenerator.valueToCode(block, "PARTIAL", Order.NONE) || '""';
+  return [`shell.complete(${partial})`, Order.NONE];
+};
+
+// Shell: Complete Program
+Blockly.Blocks["shell_completeProgram"] = {
+  init: function () {
+    this.appendValueInput("PARTIAL")
+      .setCheck("String")
+      .appendField("shell.completeProgram partial");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets completions for a partial program name.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:completeProgram");
+  },
+};
+luaGenerator.forBlock["shell_completeProgram"] = function (block) {
+  const partial = luaGenerator.valueToCode(block, "PARTIAL", Order.NONE) || '""';
+  return [`shell.completeProgram(${partial})`, Order.NONE];
+};
+
+// Shell: Set Completion Function
+Blockly.Blocks["shell_setCompletionFunction"] = {
+  init: function () {
+    this.appendValueInput("PATH")
+      .setCheck("String")
+      .appendField("shell.setCompletionFunction path");
+    this.appendValueInput("FUNCTION")
+      .setCheck("Function")
+      .appendField("function");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets a completion function for a path.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:setCompletionFunction");
+  },
+};
+luaGenerator.forBlock["shell_setCompletionFunction"] = function (block) {
+  const path = luaGenerator.valueToCode(block, "PATH", Order.NONE) || '""';
+  const func = luaGenerator.valueToCode(block, "FUNCTION", Order.NONE) || 'nil';
+  return `shell.setCompletionFunction(${path}, ${func})\n`;
+};
+
+// Shell: Get Completion Info
+Blockly.Blocks["shell_getCompletionInfo"] = {
+  init: function () {
+    this.appendDummyInput().appendField("shell.getCompletionInfo");
+    this.setOutput(true, "Object");
+    this.setColour(230);
+    this.setTooltip("Gets the shell's completion information.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:getCompletionInfo");
+  },
+};
+luaGenerator.forBlock["shell_getCompletionInfo"] = function () {
+  return ["shell.getCompletionInfo()", Order.NONE];
+};
+
+// Shell: Get Running Program
+Blockly.Blocks["shell_getRunningProgram"] = {
+  init: function () {
+    this.appendDummyInput().appendField("shell.getRunningProgram");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Gets the name of the currently running program.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:getRunningProgram");
+  },
+};
+luaGenerator.forBlock["shell_getRunningProgram"] = function () {
+  return ["shell.getRunningProgram()", Order.NONE];
+};
+
+// Shell: Set Alias
+Blockly.Blocks["shell_setAlias"] = {
+  init: function () {
+    this.appendValueInput("ALIAS")
+      .setCheck("String")
+      .appendField("shell.setAlias alias");
+    this.appendValueInput("COMMAND")
+      .setCheck("String")
+      .appendField("command");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets an alias for a command.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:setAlias");
+  },
+};
+luaGenerator.forBlock["shell_setAlias"] = function (block) {
+  const alias = luaGenerator.valueToCode(block, "ALIAS", Order.NONE) || '""';
+  const command = luaGenerator.valueToCode(block, "COMMAND", Order.NONE) || '""';
+  return `shell.setAlias(${alias}, ${command})\n`;
+};
+
+// Shell: Clear Alias
+Blockly.Blocks["shell_clearAlias"] = {
+  init: function () {
+    this.appendValueInput("ALIAS")
+      .setCheck("String")
+      .appendField("shell.clearAlias alias");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Clears an alias.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:clearAlias");
+  },
+};
+luaGenerator.forBlock["shell_clearAlias"] = function (block) {
+  const alias = luaGenerator.valueToCode(block, "ALIAS", Order.NONE) || '""';
+  return `shell.clearAlias(${alias})\n`;
+};
+
+// Shell: Aliases
+Blockly.Blocks["shell_aliases"] = {
+  init: function () {
+    this.appendDummyInput().appendField("shell.aliases");
+    this.setOutput(true, "Object");
+    this.setColour(230);
+    this.setTooltip("Gets a table of all aliases.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:aliases");
+  },
+};
+luaGenerator.forBlock["shell_aliases"] = function () {
+  return ["shell.aliases()", Order.NONE];
+};
+
+// Shell: Open Tab
+Blockly.Blocks["shell_openTab"] = {
+  init: function () {
+    this.appendValueInput("COMMAND")
+      .setCheck("String")
+      .appendField("shell.openTab command");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Opens a new tab running the specified command.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:openTab");
+  },
+};
+luaGenerator.forBlock["shell_openTab"] = function (block) {
+  const command = luaGenerator.valueToCode(block, "COMMAND", Order.NONE) || '""';
+  return [`shell.openTab(${command})`, Order.NONE];
+};
+
+// Shell: Switch Tab
+Blockly.Blocks["shell_switchTab"] = {
+  init: function () {
+    this.appendValueInput("TAB_ID")
+      .setCheck("Number")
+      .appendField("shell.switchTab tab ID");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Switches to the specified tab.");
+    this.setHelpUrl("https://tweaked.cc/module/shell.html#v:switchTab");
+  },
+};
+luaGenerator.forBlock["shell_switchTab"] = function (block) {
+  const tabId = luaGenerator.valueToCode(block, "TAB_ID", Order.NONE) || "1";
+  return `shell.switchTab(${tabId})\n`;
+};
+
+//#endregion
+
+//#region Multishell
+
+// Multishell: Get Focus
+Blockly.Blocks["multishell_getFocus"] = {
+  init: function () {
+    this.appendDummyInput().appendField("multishell.getFocus");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the ID of the currently focused tab.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:getFocus");
+  },
+};
+luaGenerator.forBlock["multishell_getFocus"] = function () {
+  return ["multishell.getFocus()", Order.NONE];
+};
+
+// Multishell: Set Focus
+Blockly.Blocks["multishell_setFocus"] = {
+  init: function () {
+    this.appendValueInput("TAB_ID")
+      .setCheck("Number")
+      .appendField("multishell.setFocus tab ID");
+    this.setOutput(true, "Boolean"); // Updated to return a boolean
+    this.setColour(230);
+    this.setTooltip("Sets the focus to the specified tab ID and returns true if successful.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:setFocus");
+  },
+};
+luaGenerator.forBlock["multishell_setFocus"] = function (block) {
+  const tabId = luaGenerator.valueToCode(block, "TAB_ID", Order.NONE) || "1";
+  return [`multishell.setFocus(${tabId})`, Order.NONE]; // Updated to return a value
+};
+// Multishell: Get Title
+Blockly.Blocks["multishell_getTitle"] = {
+  init: function () {
+    this.appendValueInput("TAB_ID")
+      .setCheck("Number")
+      .appendField("multishell.getTitle tab ID");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("Gets the title of the specified tab.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:getTitle");
+  },
+};
+luaGenerator.forBlock["multishell_getTitle"] = function (block) {
+  const tabId = luaGenerator.valueToCode(block, "TAB_ID", Order.NONE) || "1";
+  return [`multishell.getTitle(${tabId})`, Order.NONE];
+};
+
+// Multishell: Set Title
+Blockly.Blocks["multishell_setTitle"] = {
+  init: function () {
+    this.appendValueInput("TAB_ID")
+      .setCheck("Number")
+      .appendField("multishell.setTitle tab ID");
+    this.appendValueInput("TITLE")
+      .setCheck("String")
+      .appendField("title");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the title of the specified tab.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:setTitle");
+  },
+};
+luaGenerator.forBlock["multishell_setTitle"] = function (block) {
+  const tabId = luaGenerator.valueToCode(block, "TAB_ID", Order.NONE) || "1";
+  const title = luaGenerator.valueToCode(block, "TITLE", Order.NONE) || '""';
+  return `multishell.setTitle(${tabId}, ${title})\n`;
+};
+
+// Multishell: Get Current
+Blockly.Blocks["multishell_getCurrent"] = {
+  init: function () {
+    this.appendDummyInput().appendField("multishell.getCurrent");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the ID of the currently running tab.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:getCurrent");
+  },
+};
+luaGenerator.forBlock["multishell_getCurrent"] = function () {
+  return ["multishell.getCurrent()", Order.NONE];
+};
+
+// Multishell: Launch
+Blockly.Blocks["multishell_launch"] = {
+  init: function () {
+    this.appendValueInput("ENVIRONMENT")
+      .setCheck("Object")
+      .appendField("multishell.launch environment");
+    this.appendValueInput("PROGRAM")
+      .setCheck("String")
+      .appendField("program");
+    this.appendValueInput("ARGS")
+      .setCheck("Array")
+      .appendField("args");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Launches a new program in a new tab with the specified environment, program, and arguments.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:launch");
+  },
+};
+luaGenerator.forBlock["multishell_launch"] = function (block) {
+  const environment = luaGenerator.valueToCode(block, "ENVIRONMENT", Order.NONE) || "{}";
+  const program = luaGenerator.valueToCode(block, "PROGRAM", Order.NONE) || '""';
+  const args = luaGenerator.valueToCode(block, "ARGS", Order.NONE) || "{}";
+  return [`multishell.launch(${environment}, ${program}, unpack(${args}))`, Order.NONE];
+};
+// Multishell: Get Count
+Blockly.Blocks["multishell_getCount"] = {
+  init: function () {
+    this.appendDummyInput().appendField("multishell.getCount");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the number of tabs currently open.");
+    this.setHelpUrl("https://tweaked.cc/module/multishell.html#v:getCount");
+  },
+};
+luaGenerator.forBlock["multishell_getCount"] = function () {
+  return ["multishell.getCount()", Order.NONE];
+};
+
+//#endregion
+
+
