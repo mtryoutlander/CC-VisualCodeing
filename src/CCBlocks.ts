@@ -1992,3 +1992,879 @@ luaGenerator.forBlock["computer_getLabel"] = function () {
 };
 
 //#endregion
+
+
+//#region Vector
+
+// Vector: New
+Blockly.Blocks["vector_new"] = {
+  init: function () {
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField("create vector with x");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("y");
+    this.appendValueInput("Z")
+      .setCheck("Number")
+      .appendField("z");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Creates a new vector and returns it as an object.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:new");
+  },
+};
+luaGenerator.forBlock["vector_new"] = function (block) {
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "0";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "0";
+  const z = luaGenerator.valueToCode(block, "Z", Order.NONE) || "0";
+  return [`vector.new(${x}, ${y}, ${z})`, Order.NONE];
+};
+
+// Vector: Add
+Blockly.Blocks["vector_add"] = {
+  init: function () {
+    this.appendValueInput("VECTOR1")
+      .setCheck("Object")
+      .appendField("add vector");
+    this.appendValueInput("VECTOR2")
+      .setCheck("Object")
+      .appendField("to vector");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Adds two vectors and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:add");
+  },
+};
+luaGenerator.forBlock["vector_add"] = function (block) {
+  const vector1 = luaGenerator.valueToCode(block, "VECTOR1", Order.NONE) || "nil";
+  const vector2 = luaGenerator.valueToCode(block, "VECTOR2", Order.NONE) || "nil";
+  return [`${vector1} + ${vector2}`, Order.NONE];
+};
+
+// Vector: Subtract
+Blockly.Blocks["vector_sub"] = {
+  init: function () {
+    this.appendValueInput("VECTOR1")
+      .setCheck("Object")
+      .appendField("subtract vector");
+    this.appendValueInput("VECTOR2")
+      .setCheck("Object")
+      .appendField("from vector");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Subtracts one vector from another and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:sub");
+  },
+};
+luaGenerator.forBlock["vector_sub"] = function (block) {
+  const vector1 = luaGenerator.valueToCode(block, "VECTOR1", Order.NONE) || "nil";
+  const vector2 = luaGenerator.valueToCode(block, "VECTOR2", Order.NONE) || "nil";
+  return [`${vector1} - ${vector2}`, Order.NONE];
+};
+
+// Vector: Multiply
+Blockly.Blocks["vector_mul"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("multiply vector");
+    this.appendValueInput("SCALAR")
+      .setCheck("Number")
+      .appendField("by scalar");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Multiplies a vector by a scalar and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:mul");
+  },
+};
+luaGenerator.forBlock["vector_mul"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  const scalar = luaGenerator.valueToCode(block, "SCALAR", Order.NONE) || "1";
+  return [`${vector} * ${scalar}`, Order.NONE];
+};
+
+// Vector: Divide
+Blockly.Blocks["vector_div"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("divide vector");
+    this.appendValueInput("SCALAR")
+      .setCheck("Number")
+      .appendField("by scalar");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Divides a vector by a scalar and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:div");
+  },
+};
+luaGenerator.forBlock["vector_div"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  const scalar = luaGenerator.valueToCode(block, "SCALAR", Order.NONE) || "1";
+  return [`${vector} / ${scalar}`, Order.NONE];
+};
+
+// Vector: Negate
+Blockly.Blocks["vector_unm"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("negate vector");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Negates a vector and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:unm");
+  },
+};
+luaGenerator.forBlock["vector_unm"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  return [`-${vector}`, Order.NONE];
+};
+
+// Vector: Dot Product
+Blockly.Blocks["vector_dot"] = {
+  init: function () {
+    this.appendValueInput("VECTOR1")
+      .setCheck("Object")
+      .appendField("dot product of vector");
+    this.appendValueInput("VECTOR2")
+      .setCheck("Object")
+      .appendField("and vector");
+    this.setOutput(true, "Number");
+    this.setColour(290);
+    this.setTooltip("Calculates the dot product of two vectors.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:dot");
+  },
+};
+luaGenerator.forBlock["vector_dot"] = function (block) {
+  const vector1 = luaGenerator.valueToCode(block, "VECTOR1", Order.NONE) || "nil";
+  const vector2 = luaGenerator.valueToCode(block, "VECTOR2", Order.NONE) || "nil";
+  return [`${vector1}:dot(${vector2})`, Order.NONE];
+};
+
+// Vector: Cross Product
+Blockly.Blocks["vector_cross"] = {
+  init: function () {
+    this.appendValueInput("VECTOR1")
+      .setCheck("Object")
+      .appendField("cross product of vector");
+    this.appendValueInput("VECTOR2")
+      .setCheck("Object")
+      .appendField("and vector");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Calculates the cross product of two vectors.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:cross");
+  },
+};
+luaGenerator.forBlock["vector_cross"] = function (block) {
+  const vector1 = luaGenerator.valueToCode(block, "VECTOR1", Order.NONE) || "nil";
+  const vector2 = luaGenerator.valueToCode(block, "VECTOR2", Order.NONE) || "nil";
+  return [`${vector1}:cross(${vector2})`, Order.NONE];
+};
+
+// Vector: Length
+Blockly.Blocks["vector_length"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("length of vector");
+    this.setOutput(true, "Number");
+    this.setColour(290);
+    this.setTooltip("Calculates the length of a vector.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:length");
+  },
+};
+luaGenerator.forBlock["vector_length"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  return [`${vector}:length()`, Order.NONE];
+};
+
+// Vector: Normalize
+Blockly.Blocks["vector_normalise"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("normalize vector");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Normalizes a vector and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:normalize");
+  },
+};
+luaGenerator.forBlock["vector_normalise"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  return [`${vector}:normalize()`, Order.NONE];
+};
+
+// Vector: Round
+Blockly.Blocks["vector_round"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("round vector");
+    this.setOutput(true, "Object");
+    this.setColour(290);
+    this.setTooltip("Rounds the components of a vector and returns the result.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:round");
+  },
+};
+luaGenerator.forBlock["vector_round"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  return [`${vector}:round()`, Order.NONE];
+};
+
+// Vector: To String
+Blockly.Blocks["vector_tostring"] = {
+  init: function () {
+    this.appendValueInput("VECTOR")
+      .setCheck("Object")
+      .appendField("convert vector to string");
+    this.setOutput(true, "String");
+    this.setColour(290);
+    this.setTooltip("Converts a vector to a string representation.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:tostring");
+  },
+};
+luaGenerator.forBlock["vector_tostring"] = function (block) {
+  const vector = luaGenerator.valueToCode(block, "VECTOR", Order.NONE) || "nil";
+  return [`${vector}:tostring()`, Order.NONE];
+};
+
+// Vector: Equals
+Blockly.Blocks["vector_equals"] = {
+  init: function () {
+    this.appendValueInput("VECTOR1")
+      .setCheck("Object")
+      .appendField("check if vector");
+    this.appendValueInput("VECTOR2")
+      .setCheck("Object")
+      .appendField("equals vector");
+    this.setOutput(true, "Boolean");
+    this.setColour(290);
+    this.setTooltip("Checks if two vectors are equal.");
+    this.setHelpUrl("https://tweaked.cc/module/vector.html#v:equals");
+  },
+};
+luaGenerator.forBlock["vector_equals"] = function (block) {
+  const vector1 = luaGenerator.valueToCode(block, "VECTOR1", Order.NONE) || "nil";
+  const vector2 = luaGenerator.valueToCode(block, "VECTOR2", Order.NONE) || "nil";
+  return [`${vector1} == ${vector2}`, Order.NONE];
+};
+
+//#endregion
+
+//#region Window
+
+// Window: Create
+Blockly.Blocks["Window_create"] = {
+  init: function () {
+    this.appendValueInput("PARENT")
+      .setCheck("Object")
+      .appendField("window.create parent");
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField("x");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("y");
+    this.appendValueInput("WIDTH")
+      .setCheck("Number")
+      .appendField("width");
+    this.appendValueInput("HEIGHT")
+      .setCheck("Number")
+      .appendField("height");
+    this.appendValueInput("VISIBLE")
+      .setCheck("Boolean")
+      .appendField("visible");
+    this.setOutput(true, "Object");
+    this.setColour(230);
+    this.setTooltip("Creates a new window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:create");
+  },
+};
+luaGenerator.forBlock["Window_create"] = function (block) {
+  const parent = luaGenerator.valueToCode(block, "PARENT", Order.NONE) || "nil";
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "1";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "1";
+  const width = luaGenerator.valueToCode(block, "WIDTH", Order.NONE) || "1";
+  const height = luaGenerator.valueToCode(block, "HEIGHT", Order.NONE) || "1";
+  const visible = luaGenerator.valueToCode(block, "VISIBLE", Order.NONE) || "true";
+  return [`window.create(${parent}, ${x}, ${y}, ${width}, ${height}, ${visible})`, Order.NONE];
+};
+
+// Window: Write
+Blockly.Blocks["Window_write"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField(".write text");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Writes text to the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:write");
+  },
+};
+luaGenerator.forBlock["Window_write"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  return `${window}.write(${text})\n`;
+};
+
+// Window: Blit
+Blockly.Blocks["Window_blit"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("window.blit text");
+    this.appendValueInput("TEXT_COLOUR")
+      .setCheck("String")
+      .appendField("text colour");
+    this.appendValueInput("BACKGROUND_COLOUR")
+      .setCheck("String")
+      .appendField("background colour");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Writes text to the window with specific text and background colours.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:blit");
+  },
+};
+luaGenerator.forBlock["Window_blit"] = function (block) {
+  const text = luaGenerator.valueToCode(block, "TEXT", Order.NONE) || '""';
+  const textColour = luaGenerator.valueToCode(block, "TEXT_COLOUR", Order.NONE) || '""';
+  const backgroundColour = luaGenerator.valueToCode(block, "BACKGROUND_COLOUR", Order.NONE) || '""';
+  return `window.blit(${text}, ${textColour}, ${backgroundColour})\n`;
+};
+
+// Window: Clear
+Blockly.Blocks["Window_clear"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".clear");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Clears the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:clear");
+  },
+};
+luaGenerator.forBlock["Window_clear"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return `${window}.clear()\n`;
+};
+
+// Window: Clear Line
+Blockly.Blocks["Window_clearLine"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".clearLine");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Clears the current line in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:clearLine");
+  },
+};
+luaGenerator.forBlock["Window_clearLine"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return `${window}.clearLine()\n`;
+};
+
+// Window: Get Cursor Position
+Blockly.Blocks["Window_getCursorPos"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getCursorPos");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets the current cursor position in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getCursorPos");
+  },
+};
+luaGenerator.forBlock["Window_getCursorPos"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getCursorPos()`, Order.NONE];
+};
+
+// Window: Set Cursor Position
+Blockly.Blocks["Window_setCursorPos"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField(".setCursorPos X");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("Y");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the cursor position in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setCursorPos");
+  },
+};
+luaGenerator.forBlock["Window_setCursorPos"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "1";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "1";
+  return `${window}.setCursorPos(${x}, ${y})\n`;
+};
+
+// Window: Scroll
+Blockly.Blocks["Window_scroll"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("LINES")
+      .setCheck("Number")
+      .appendField(".scroll lines");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Scrolls the specified window by the given number of lines.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:scroll");
+  },
+};
+luaGenerator.forBlock["Window_scroll"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const lines = luaGenerator.valueToCode(block, "LINES", Order.NONE) || "0";
+  return `${window}.scroll(${lines})\n`;
+};
+
+// Window: Set Visible
+Blockly.Blocks["Window_setVisible"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("VISIBLE")
+      .setCheck("Boolean")
+      .appendField(".setVisible visible");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets whether the specified window is visible.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setVisible");
+  },
+};
+luaGenerator.forBlock["Window_setVisible"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const visible = luaGenerator.valueToCode(block, "VISIBLE", Order.NONE) || "true";
+  return `${window}.setVisible(${visible})\n`;
+};
+
+// Window: Redraw
+Blockly.Blocks["Window_redraw"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".redraw");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Redraws the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:redraw");
+  },
+};
+luaGenerator.forBlock["Window_redraw"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return `${window}.redraw()\n`;
+};
+
+// Window: Get Position
+Blockly.Blocks["Window_getPosition"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getPosition");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets the position of the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getPosition");
+  },
+};
+luaGenerator.forBlock["Window_getPosition"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getPosition()`, Order.NONE];
+};
+// Window: Reposition
+Blockly.Blocks["Window_reposition"] = {
+  init: function () {
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField("window.reposition x");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("y");
+    this.appendValueInput("WIDTH")
+      .setCheck("Number")
+      .appendField("width");
+    this.appendValueInput("HEIGHT")
+      .setCheck("Number")
+      .appendField("height");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Repositions the window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:reposition");
+  },
+};
+luaGenerator.forBlock["Window_reposition"] = function (block) {
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "1";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "1";
+  const width = luaGenerator.valueToCode(block, "WIDTH", Order.NONE) || "1";
+  const height = luaGenerator.valueToCode(block, "HEIGHT", Order.NONE) || "1";
+  return `window.reposition(${x}, ${y}, ${width}, ${height})\n`;
+};
+
+// Window: Set Cursor Blink
+Blockly.Blocks["Window_setCursorBlink"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("STATE")
+      .setCheck("Boolean")
+      .appendField(".setCursorBlink state");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets whether the cursor blinks in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setCursorBlink");
+  },
+};
+luaGenerator.forBlock["Window_setCursorBlink"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const state = luaGenerator.valueToCode(block, "STATE", Order.NONE) || "true";
+  return `${window}.setCursorBlink(${state})\n`;
+};
+
+// Window: Get Cursor Blink
+Blockly.Blocks["Window_getCursorBlink"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getCursorBlink");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Gets whether the cursor is blinking in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getCursorBlink");
+  },
+};
+luaGenerator.forBlock["Window_getCursorBlink"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getCursorBlink()`, Order.NONE];
+};
+
+// Window: Is Color
+Blockly.Blocks["Window_isColor"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".isColor");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Checks if the specified window supports color.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:isColor");
+  },
+};
+luaGenerator.forBlock["Window_isColor"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.isColor()`, Order.NONE];
+};
+// Window: Set Text Color
+Blockly.Blocks["Window_setTextColor"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("COLOR")
+      .setCheck("Number")
+      .appendField(".setTextColor color");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the text color in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setTextColor");
+  },
+};
+luaGenerator.forBlock["Window_setTextColor"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const color = luaGenerator.valueToCode(block, "COLOR", Order.NONE) || "1";
+  return `${window}.setTextColor(${color})\n`;
+};
+
+// Window: Set Palette Colour
+Blockly.Blocks["Window_setPaletteColour"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("COLOR")
+      .setCheck("Number")
+      .appendField(".setPaletteColour color");
+    this.appendValueInput("RGB")
+      .setCheck("Object")
+      .appendField("RGB");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the palette color for the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setPaletteColour");
+  },
+};
+luaGenerator.forBlock["Window_setPaletteColour"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const color = luaGenerator.valueToCode(block, "COLOR", Order.NONE) || "1";
+  const rgb = luaGenerator.valueToCode(block, "RGB", Order.NONE) || "{}";
+  return `${window}.setPaletteColour(${color}, ${rgb})\n`;
+};
+
+// Window: Set Background Colour
+Blockly.Blocks["Window_setBackgroundColour"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("COLOR")
+      .setCheck("Number")
+      .appendField(".setBackgroundColour color");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets the background color in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setBackgroundColour");
+  },
+};
+luaGenerator.forBlock["Window_setBackgroundColour"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const color = luaGenerator.valueToCode(block, "COLOR", Order.NONE) || "1";
+  return `${window}.setBackgroundColour(${color})\n`;
+};
+
+// Window: Get Size
+Blockly.Blocks["Window_getSize"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getSize");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets the size of the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getSize");
+  },
+};
+luaGenerator.forBlock["Window_getSize"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getSize()`, Order.NONE];
+};
+
+// Window: Scroll
+Blockly.Blocks["Window_scroll"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("LINES")
+      .setCheck("Number")
+      .appendField(".scroll lines");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Scrolls the specified window by the given number of lines.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:scroll");
+  },
+};
+luaGenerator.forBlock["Window_scroll"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const lines = luaGenerator.valueToCode(block, "LINES", Order.NONE) || "0";
+  return `${window}.scroll(${lines})\n`;
+};
+
+// Window: Get Text Color
+Blockly.Blocks["Window_getTextColor"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getTextColor");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the current text color in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getTextColor");
+  },
+};
+luaGenerator.forBlock["Window_getTextColor"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getTextColor()`, Order.NONE];
+};
+
+// Window: Get Background Colour
+Blockly.Blocks["Window_getBackgroundColour"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getBackgroundColour");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Gets the current background color in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getBackgroundColour");
+  },
+};
+luaGenerator.forBlock["Window_getBackgroundColour"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getBackgroundColour()`, Order.NONE];
+};
+
+// Window: Set Visible
+Blockly.Blocks["Window_setVisible"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("VISIBLE")
+      .setCheck("Boolean")
+      .appendField(".setVisible visible");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Sets whether the specified window is visible.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:setVisible");
+  },
+};
+luaGenerator.forBlock["Window_setVisible"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const visible = luaGenerator.valueToCode(block, "VISIBLE", Order.NONE) || "true";
+  return `${window}.setVisible(${visible})\n`;
+};
+
+// Window: Is Visible
+Blockly.Blocks["Window_isVisible"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".isVisible");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+    this.setTooltip("Checks if the specified window is visible.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:isVisible");
+  },
+};
+luaGenerator.forBlock["Window_isVisible"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.isVisible()`, Order.NONE];
+};
+
+// Window: Redraw
+Blockly.Blocks["Window_redraw"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".redraw");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Redraws the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:redraw");
+  },
+};
+luaGenerator.forBlock["Window_redraw"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return `${window}.redraw()\n`;
+};
+
+// Window: Restore Cursor
+Blockly.Blocks["Window_restoreCursor"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".restoreCursor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Restores the cursor to its previous position in the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:restoreCursor");
+  },
+};
+luaGenerator.forBlock["Window_restoreCursor"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return `${window}.restoreCursor()\n`;
+};
+
+// Window: Get Position
+Blockly.Blocks["Window_getPosition"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendDummyInput().appendField(".getPosition");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+    this.setTooltip("Gets the position of the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:getPosition");
+  },
+};
+luaGenerator.forBlock["Window_getPosition"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  return [`${window}.getPosition()`, Order.NONE];
+};
+
+// Window: Reposition
+Blockly.Blocks["Window_reposition"] = {
+  init: function () {
+    this.appendValueInput("WINDOW")
+      .setCheck("Object")
+      .appendField("window");
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField(".reposition x");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("y");
+    this.appendValueInput("WIDTH")
+      .setCheck("Number")
+      .appendField("width");
+    this.appendValueInput("HEIGHT")
+      .setCheck("Number")
+      .appendField("height");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Repositions the specified window.");
+    this.setHelpUrl("https://tweaked.cc/module/window.html#v:reposition");
+  },
+};
+luaGenerator.forBlock["Window_reposition"] = function (block) {
+  const window = luaGenerator.valueToCode(block, "WINDOW", Order.NONE) || "window";
+  const x = luaGenerator.valueToCode(block, "X", Order.NONE) || "1";
+  const y = luaGenerator.valueToCode(block, "Y", Order.NONE) || "1";
+  const width = luaGenerator.valueToCode(block, "WIDTH", Order.NONE) || "1";
+  const height = luaGenerator.valueToCode(block, "HEIGHT", Order.NONE) || "1";
+  return `${window}.reposition(${x}, ${y}, ${width}, ${height})\n`;
+};
+
+//#endregion
