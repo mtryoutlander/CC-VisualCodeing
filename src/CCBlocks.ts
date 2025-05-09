@@ -2878,3 +2878,83 @@ luaGenerator.forBlock["Window_reposition"] = function (block) {
 };
 
 //#endregion
+
+//#region Event Blocks
+
+// Event Selector Block
+Blockly.Blocks["G_event"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("event")
+      .appendField(new Blockly.FieldDropdown([
+        ["alarm", "alarm"],
+        ["char", "char"],
+        ["computer_command", "computer_command"],
+        ["disk", "disk"],
+        ["disk_eject", "disk_eject"],
+        ["file_transfer","file_transfer"],
+        ["http_check", "http_check"],
+        ["http_failure", "http_failure"],
+        ["http_success", "http_success"],
+        ["key", "key"],
+        ["key_up", "key_up"],
+        ["modem_message", "modem_message"],
+        ["monitor_resize", "monitor_resize"],
+        ["monitor_touch", "monitor_touch"],
+        ["mouse_click", "mouse_click"],
+        ["mouse_drag", "mouse_drag"],
+        ["mouse_scroll", "mouse_scroll"],
+        ["mouse_up", "mouse_up"],
+        ["paste", "paste"],
+        ["peripheral", "peripheral"],
+        ["peripheral_detach", "peripheral_detach"],
+        ["rednet_message", "rednet_message"],
+        ["redstone", "redstone"],
+        ["speaker_audio_empty", "speaker_audio_empty"],
+        ["task_complete", "task_complete"],
+        ["terminate", "terminate"],
+        ["timer", "timer"],
+        ["turtle_inventory", "turtle_inventory"],
+        ["websocket_closed", "websocket_closed"],
+        ["websocket_failure", "websocket_failure"],
+        ["websocket_message", "websocket_message"],
+        ["websocket_success", "websocket_success"]
+      ]), "EVENT");
+    this.setOutput(true, "String");
+    this.setColour(120);
+    this.setTooltip("Select an event from the list of CC:Tweaked events.");
+    this.setHelpUrl("https://tweaked.cc/event/");
+  },
+};
+luaGenerator.forBlock["G_event"] = function (block) {
+  const event = block.getFieldValue("EVENT");
+  return [`"${event}"`, Order.NONE];
+};
+
+// Updated Event Trigger Block
+Blockly.Blocks["G_trigger"] = {
+  init: function () {
+    this.appendValueInput("EVENT")
+      .setCheck("String")
+      .appendField("on event");
+    this.appendValueInput("VARIABLE1")
+      .setCheck("String")
+      .appendField("set variable 1");
+    this.appendValueInput("VARIABLE2")
+      .setCheck("String")
+      .appendField("set variable 2");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+    this.setTooltip("Assigns a function to be triggered when the specified event occurs, with two variables.");
+    this.setHelpUrl("https://tweaked.cc/module/os.html#v:pullEvent");
+  },
+};
+luaGenerator.forBlock["G_trigger"] = function (block) {
+  const event = luaGenerator.valueToCode(block, "EVENT", Order.NONE) || '""';
+  const variable1 = luaGenerator.valueToCode(block, "VARIABLE1", Order.NONE) || "_";
+  const variable2 = luaGenerator.valueToCode(block, "VARIABLE2", Order.NONE) || "_";
+  return `${variable1}, ${variable2} = os.pullEvent(${event})\n`;
+};
+//#endregion
+
